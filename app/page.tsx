@@ -43,6 +43,11 @@ export default function Home() {
       {/* Latest Project Section */}
       <LatestProjectSection />
 
+      {/* Background Image Section */}
+      <StickyBackgroundWindow
+        imageUrl="" // Add your image URL here
+      />
+
       {/* VITO Case Study Section */}
       <VITOCaseStudySection />
 
