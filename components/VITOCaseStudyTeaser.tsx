@@ -25,13 +25,7 @@ const testimonials: VideoTestimonial[] = [
     title: 'VITO Fryfilter',
     description: 'Complete digital transformation that eliminated customer confusion, generated 40+ video testimonials, and drove massive traffic growth through strategic systems and modern design.',
     clientName: 'VITO Team',
-    company: 'VITO Fryfilter Inc.',
-    metrics: [
-      { value: '$520K+', label: 'Revenue Generated' },
-      { value: '24x', label: 'ROAS' },
-      { value: '38%+', label: 'Conversion Lift' },
-      { value: '285%', label: 'Traffic Growth' }
-    ]
+    company: 'VITO Fryfilter Inc.'
   },
   {
     videoUrl: 'https://cdn.shopify.com/s/files/1/0004/2496/8203/files/Caption_video_project_1.mp4?v=1724354006',
