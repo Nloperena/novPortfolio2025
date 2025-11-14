@@ -2,43 +2,69 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
+import { TrendingUp, Users, Target, Star } from 'lucide-react';
+
+interface Metric {
+  value: string;
+  label: string;
+  icon?: React.ComponentType<{ className?: string }>;
+  color?: string;
+}
 
 interface VideoTestimonial {
   videoUrl: string;
   title: string;
   description: string;
+  clientName?: string;
+  clientTitle?: string;
+  company?: string;
+  metrics?: Metric[];
 }
 
 const testimonials: VideoTestimonial[] = [
   {
     videoUrl: 'https://cdn.shopify.com/s/files/1/0004/2496/8203/files/Caption_video_project-1_1__1_dbbb9822-d82e-45ee-9225-a25be9f41f0b.mp4?v=1724180981',
     title: 'Waterside Market',
-    description: 'Waterside Market found the secret to keeping their flavors fresh and their kitchen efficient with VITO! Just like Chris, you can save up to 50% on cooking oil and serve up the best of the Vineyard every day.'
+    description: 'Waterside Market found the secret to keeping their flavors fresh and their kitchen efficient with VITO! Just like Chris, you can save up to 50% on cooking oil and serve up the best of the Vineyard every day.',
+    clientName: 'Chris',
+    company: 'Waterside Market',
+    metrics: [
+      { value: '50%', label: 'Oil Savings', icon: TrendingUp, color: 'text-green-600' }
+    ]
   },
   {
     videoUrl: 'https://cdn.shopify.com/s/files/1/0004/2496/8203/files/Caption_video_project_1.mp4?v=1724354006',
     title: 'Good Ol Days Diner',
-    description: 'Good Ol\' Days Diner welcomes Smarter Frying with VITO! They\'ve maintained the flavor of yesteryears while stepping into the future. Now, they cook that homemade taste efficiently, saving on oil costs and keeping their kitchen clean.'
+    description: 'Good Ol\' Days Diner welcomes Smarter Frying with VITO! They\'ve maintained the flavor of yesteryears while stepping into the future. Now, they cook that homemade taste efficiently, saving on oil costs and keeping their kitchen clean.',
+    company: 'Good Ol\' Days Diner',
   },
   {
     videoUrl: 'https://cdn.shopify.com/s/files/1/0004/2496/8203/files/Untitled-1_17.mp4?v=1726158775',
     title: 'Nineveh Assyrian',
-    description: 'Jacob from Nineveh has seen the difference VITO makes in both their food truck and restaurant kitchens! Easy to use, keeps their oil cleaner, and extends its life—helping them serve the freshest dishes every time.'
+    description: 'Jacob from Nineveh has seen the difference VITO makes in both their food truck and restaurant kitchens! Easy to use, keeps their oil cleaner, and extends its life—helping them serve the freshest dishes every time.',
+    clientName: 'Jacob',
+    company: 'Nineveh Assyrian',
   },
   {
     videoUrl: 'https://cdn.shopify.com/s/files/1/0004/2496/8203/files/Caption_video_project_2.mp4?v=1724179828',
     title: 'Teters Market',
-    description: 'Teter\'s Market has discovered the secret for magical savings with VITO, and they\'ve nicknamed it \'The Wizard\'! Come witness the enchanting change in your kitchen and watch the oil costs drop by up to 50%.'
+    description: 'Teter\'s Market has discovered the secret for magical savings with VITO, and they\'ve nicknamed it \'The Wizard\'! Come witness the enchanting change in your kitchen and watch the oil costs drop by up to 50%.',
+    company: 'Teter\'s Market',
+    metrics: [
+      { value: '50%', label: 'Cost Reduction', icon: TrendingUp, color: 'text-green-600' }
+    ]
   },
   {
     videoUrl: 'https://cdn.shopify.com/s/files/1/0004/2496/8203/files/Baily_Testimonial_-_Short_1_1.mp4?v=1724180955',
     title: 'Bailey Seafood',
-    description: 'Freshness is king, and VITO helps us keep it fresh. Serving Buffalo\'s best seafood for decades, Bailey Seafood trusts VITO to keep top-quality food while reducing oil costs.'
+    description: 'Freshness is king, and VITO helps us keep it fresh. Serving Buffalo\'s best seafood for decades, Bailey Seafood trusts VITO to keep top-quality food while reducing oil costs.',
+    company: 'Bailey Seafood',
   },
   {
     videoUrl: 'https://cdn.shopify.com/s/files/1/0004/2496/8203/files/platime_1_033ab9cd-3ced-4972-9eda-487b96bd0412.mp4?v=1724180986',
     title: 'Playtime Arcade and Bar',
-    description: 'At Playtime Arcade & Bar, the fun never stops! With VITO, they\'re not just saving on cooking oil – they\'re keeping their kitchen clean and efficient, so you can enjoy your favorite snacks while diving into endless entertainment.'
+    description: 'At Playtime Arcade & Bar, the fun never stops! With VITO, they\'re not just saving on cooking oil – they\'re keeping their kitchen clean and efficient, so you can enjoy your favorite snacks while diving into endless entertainment.',
+    company: 'Playtime Arcade & Bar',
   }
 ];
 
@@ -49,16 +75,33 @@ interface TestimonialVideosGridProps {
 }
 
 const TestimonialVideosGrid: React.FC<TestimonialVideosGridProps> = ({
-  title = 'Client Testimonial Videos',
-  description = 'Hear directly from clients who\'ve experienced the VITO transformation—over 70 video testimonials generated through our incentive program.',
+  title = 'Client Success Stories',
+  description = 'Real results from real clients. See how our digital solutions drive measurable business outcomes.',
   showHeader = true
 }) => {
-  // Duplicate testimonials multiple times for seamless infinite scroll
-  const duplicatedTestimonials = [...testimonials, ...testimonials, ...testimonials];
+  // Add VITO testimonial with metrics at the beginning
+  const vitoTestimonial: VideoTestimonial = {
+    videoUrl: 'https://cdn.shopify.com/s/files/1/0004/2496/8203/files/Caption_video_project-1_1__1_dbbb9822-d82e-45ee-9225-a25be9f41f0b.mp4?v=1724180981',
+    title: 'VITO Fryfilter',
+    description: 'Complete digital transformation that eliminated customer confusion, generated 40+ video testimonials, and drove massive traffic growth through strategic systems and modern design.',
+    clientName: 'VITO Team',
+    company: 'VITO Fryfilter Inc.',
+    metrics: [
+      { value: '$520K+', label: 'Revenue Generated', icon: TrendingUp, color: 'text-[#1a4d3a]' },
+      { value: '24x', label: 'ROAS', icon: Target, color: 'text-[#F2611D]' },
+      { value: '38%+', label: 'Conversion Lift', icon: Star, color: 'text-blue-600' },
+      { value: '285%', label: 'Traffic Growth', icon: Users, color: 'text-purple-600' }
+    ]
+  };
+
+  // Insert VITO at the beginning if we want it featured
+  const allTestimonials = [vitoTestimonial, ...testimonials];
   
-  // Calculate the width of one set (6 testimonials)
-  // Card width: 320px on mobile, 400px on desktop + 48px gap (wider)
-  const singleSetWidth = testimonials.length * 448; // 400px width + 48px gap
+  // Duplicate testimonials multiple times for seamless infinite scroll
+  const duplicatedTestimonials = [...allTestimonials, ...allTestimonials, ...allTestimonials];
+  
+  // Calculate the width of one set
+  const singleSetWidth = allTestimonials.length * 448; // 400px width + 48px gap
 
   return (
     <div className="w-full bg-gray-900 py-16 md:py-20 overflow-hidden">
@@ -97,34 +140,75 @@ const TestimonialVideosGrid: React.FC<TestimonialVideosGridProps> = ({
             },
           }}
         >
-          {duplicatedTestimonials.map((testimonial, index) => (
-            <div
-              key={index}
-              className="flex-shrink-0 w-[280px] sm:w-[320px] md:w-[400px] lg:w-[450px] bg-white rounded-xl overflow-hidden shadow-xl border border-gray-700 hover:shadow-2xl transition-shadow"
-            >
-              <div className="relative aspect-[9/16] bg-black rounded-t-xl overflow-hidden">
-                <video
-                  playsInline
-                  autoPlay
-                  muted
-                  loop
-                  className="w-full h-full object-cover"
-                >
-                  <source src={testimonial.videoUrl} type="video/mp4" />
-                  Your browser does not support the video tag.
-                </video>
+          {duplicatedTestimonials.map((testimonial, index) => {
+            const hasMetrics = testimonial.metrics && testimonial.metrics.length > 0;
+            
+            return (
+              <div
+                key={index}
+                className="flex-shrink-0 w-[280px] sm:w-[320px] md:w-[400px] lg:w-[450px] bg-white rounded-xl overflow-hidden shadow-xl border border-gray-700 hover:shadow-2xl transition-shadow flex flex-col"
+              >
+                {/* 1. Video Thumbnail - Top */}
+                <div className="relative aspect-[9/16] bg-black rounded-t-xl overflow-hidden flex-shrink-0">
+                  <video
+                    playsInline
+                    autoPlay
+                    muted
+                    loop
+                    className="w-full h-full object-cover"
+                  >
+                    <source src={testimonial.videoUrl} type="video/mp4" />
+                    Your browser does not support the video tag.
+                  </video>
+                </div>
+                
+                {/* 2. Metrics Section - Middle (if available) */}
+                {hasMetrics && (
+                  <div className="px-4 py-4 bg-gradient-to-b from-gray-50 to-white border-y border-gray-200">
+                    <div className={`grid ${testimonial.metrics!.length === 4 ? 'grid-cols-2' : 'grid-cols-1'} gap-3`}>
+                      {testimonial.metrics!.map((metric, metricIndex) => {
+                        const IconComponent = metric.icon;
+                        return (
+                          <div key={metricIndex} className="flex items-center gap-2">
+                            {IconComponent && (
+                              <IconComponent className={`w-4 h-4 ${metric.color || 'text-gray-600'}`} />
+                            )}
+                            <div className="flex-1 min-w-0">
+                              <div className={`text-lg font-bold ${metric.color || 'text-gray-900'}`}>
+                                {metric.value}
+                              </div>
+                              <div className="text-xs text-gray-600 leading-tight">
+                                {metric.label}
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
+                
+                {/* 3. Quote and Client Info - Bottom */}
+                <div className="p-4 bg-white flex-1 flex flex-col">
+                  <div className="mb-3">
+                    <h4 className="text-lg font-bold text-gray-900 mb-1">
+                      {testimonial.title}
+                    </h4>
+                    {(testimonial.clientName || testimonial.company) && (
+                      <p className="text-xs text-gray-500 mb-2">
+                        {testimonial.clientName && <span className="font-semibold">{testimonial.clientName}</span>}
+                        {testimonial.clientName && testimonial.company && ' at '}
+                        {testimonial.company && <span>{testimonial.company}</span>}
+                      </p>
+                    )}
+                  </div>
+                  <p className="text-sm text-gray-600 leading-relaxed flex-1">
+                    {testimonial.description}
+                  </p>
+                </div>
               </div>
-              
-              <div className="p-4 bg-white">
-                <h4 className="text-lg font-bold text-gray-900 mb-2">
-                  {testimonial.title}
-                </h4>
-                <p className="text-sm text-gray-600 leading-relaxed">
-                  {testimonial.description}
-                </p>
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </motion.div>
       </div>
     </div>
@@ -132,4 +216,3 @@ const TestimonialVideosGrid: React.FC<TestimonialVideosGridProps> = ({
 };
 
 export default TestimonialVideosGrid;
-
