@@ -5,6 +5,7 @@ import CredibilityStrip from '@/components/CredibilityStrip';
 import TechStackStrip from '@/components/TechStackStrip';
 import AboutMeSection from '@/components/AboutMeSection';
 import SpecializationsSection from '@/components/SpecializationsSection';
+import LatestProjectSection from '@/components/LatestProjectSection';
 import VITOCaseStudyTeaser from '@/components/VITOCaseStudyTeaser';
 import SimplifiedCTA from '@/components/SimplifiedCTA';
 import FooterV2 from '@/components/FooterV2';
@@ -40,6 +41,9 @@ export default function Home() {
 
       {/* Specializations Section */}
       <SpecializationsSection />
+
+      {/* Latest Project Section */}
+      <LatestProjectSection />
 
       {/* VITO Case Study Teaser */}
       <VITOCaseStudyTeaser />
