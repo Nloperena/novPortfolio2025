@@ -1,9 +1,12 @@
 'use client'
 
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
+import ContactModal from './ContactModal';
 
 const NewHeader = () => {
+  const [isContactModalOpen, setIsContactModalOpen] = useState(false);
+
   const scrollToSection = (id: string) => {
     const section = document.getElementById(id);
     if (section) {
@@ -33,20 +36,20 @@ const NewHeader = () => {
               >
                 Work
               </a>
-              <a 
-                href="#contact-section"
-                onClick={(e) => {
-                  e.preventDefault();
-                  scrollToSection('contact-section');
-                }}
-                className="bg-[#1a4d3a] border-2 border-white text-white px-6 py-2 rounded-md hover:bg-[#2d6b52] transition-colors font-medium"
+              <button
+                onClick={() => setIsContactModalOpen(true)}
+                className="bg-[#F2611D] hover:bg-[#ea580c] text-white px-6 py-2 rounded-md transition-all duration-300 font-medium shadow-lg hover:shadow-xl"
               >
                 Contact
-              </a>
+              </button>
             </div>
 
             {/* Mobile Menu Button */}
-            <button className="md:hidden text-white" aria-label="Open menu">
+            <button 
+              className="md:hidden text-white" 
+              aria-label="Open menu"
+              onClick={() => setIsContactModalOpen(true)}
+            >
               <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
               </svg>
@@ -62,6 +65,8 @@ const NewHeader = () => {
           <span>Under Construction</span>
         </div>
       </header>
+
+      <ContactModal isOpen={isContactModalOpen} onClose={() => setIsContactModalOpen(false)} />
     </>
   );
 };

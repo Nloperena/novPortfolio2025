@@ -1,17 +1,11 @@
 'use client'
 
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import ContactModal from './ContactModal';
 
 const SimplifiedCTA = () => {
-  const scrollToContact = () => {
-    const contactSection = document.getElementById('contact-section');
-    if (contactSection) {
-      contactSection.scrollIntoView({ behavior: 'smooth' });
-    } else {
-      window.location.href = '/contact';
-    }
-  };
+  const [isContactModalOpen, setIsContactModalOpen] = useState(false);
 
   return (
     <section className="relative py-16 md:py-24 px-4 md:px-8 overflow-hidden bg-[#1a4d3a]">
@@ -43,7 +37,7 @@ const SimplifiedCTA = () => {
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              onClick={scrollToContact}
+              onClick={() => setIsContactModalOpen(true)}
               className="rounded-md bg-white text-[#1a4d3a] px-8 py-4 text-lg font-semibold transition-all duration-300 shadow-xl hover:shadow-2xl hover:bg-[#f5f5f0]"
             >
               Contact Me
@@ -61,6 +55,7 @@ const SimplifiedCTA = () => {
           </motion.div>
         </div>
       </div>
+      <ContactModal isOpen={isContactModalOpen} onClose={() => setIsContactModalOpen(false)} />
     </section>
   );
 };

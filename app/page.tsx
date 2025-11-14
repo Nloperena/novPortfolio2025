@@ -8,6 +8,7 @@ import LatestProjectSection from '@/components/LatestProjectSection';
 import VITOCaseStudyTeaser from '@/components/VITOCaseStudyTeaser';
 import SimplifiedCTA from '@/components/SimplifiedCTA';
 import FooterV2 from '@/components/FooterV2';
+import FloatingContactButton from '@/components/FloatingContactButton';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -49,6 +50,9 @@ export default function Home() {
 
       {/* Footer */}
       <FooterV2 />
+
+      {/* Floating Contact Button */}
+      <FloatingContactButton />
     </div>
   );
 }
