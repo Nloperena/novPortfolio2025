@@ -6,6 +6,7 @@ import Link from 'next/link';
 import NewHeader from '@/components/NewHeader';
 import FooterV2 from '@/components/FooterV2';
 import TextType from '@/components/TextType';
+import SimplifiedCTA from '@/components/SimplifiedCTA';
 import { ArrowLeft, TrendingUp, Users, Video, Target, Zap } from 'lucide-react';
 
 export default function VITOCaseStudy() {
@@ -97,102 +98,79 @@ export default function VITOCaseStudy() {
       <NewHeader />
 
       {/* Hero Section */}
-      <section className="pt-32 pb-16 px-6 bg-gradient-to-b from-[#1a4d3a] to-[#1a4d3a]/95">
-        <div className="max-w-7xl mx-auto">
+      <section className="pt-32 pb-16 md:pb-20 bg-[#1a4d3a] text-white">
+        <div className="max-w-6xl mx-auto px-4 md:px-6 space-y-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="text-center mb-12"
+            className="space-y-6"
           >
             <Link
               href="/"
-              className="inline-flex items-center gap-2 text-white/80 hover:text-white mb-8 transition-colors"
+              className="inline-flex items-center gap-2 text-white/70 hover:text-white transition-colors text-sm"
             >
               <ArrowLeft className="w-4 h-4" />
-              Back to Home
+              Back to Portfolio
+              <span className="text-[10px] uppercase tracking-[0.25em] bg-white/10 px-2 py-0.5 rounded-full">
+                Case Study
+              </span>
             </Link>
-            
-            <span className="bg-[#F2611D]/20 border border-[#F2611D]/40 rounded-lg px-3 py-1 text-[#F2611D] font-bold text-xs uppercase tracking-wide mb-6 inline-block">
-              Case Study
-            </span>
-            
-            <TextType
-              as="h1"
-              text="VITO Fryfilter: From $500 Crisis to Market Leader"
-              className="text-5xl md:text-6xl lg:text-7xl font-black text-white mb-6 block"
-              typingSpeed={75}
-              pauseDuration={1500}
-              showCursor={false}
-              loop={false}
-              startOnVisible={true}
-            />
-            
-            <p className="text-xl md:text-2xl text-white/90 max-w-3xl mx-auto leading-relaxed">
-              Complete digital transformation that eliminated customer confusion, generated 40+ video testimonials, 
-              and drove 285% traffic growth through strategic systems and modern design.
-            </p>
-          </motion.div>
 
-          {/* Metrics Grid */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-12"
-          >
-            {metrics.map((metric, index) => {
-              const Icon = metric.icon;
-              return (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
-                  className="bg-white/10 backdrop-blur-sm rounded-lg p-6 text-center border border-white/20"
-                >
-                  <Icon className={`w-8 h-8 ${metric.color} mx-auto mb-3`} />
-                  <div className={`text-3xl md:text-4xl font-black ${metric.color} mb-2`}>
-                    {metric.value}
-                  </div>
-                  <div className="text-white/80 text-sm font-medium">
-                    {metric.label}
-                  </div>
-                </motion.div>
-              );
-            })}
+            <div className="space-y-4 max-w-4xl">
+              <TextType
+                as="h1"
+                text="VITO Fryfilter: From $500 Crisis to Market Leader"
+                className="text-4xl md:text-5xl lg:text-6xl font-black text-white block"
+                typingSpeed={75}
+                pauseDuration={1500}
+                showCursor={false}
+                loop={false}
+                startOnVisible={true}
+              />
+              <p className="text-base md:text-lg text-white/85 leading-relaxed">
+                A $500 diagnostic engagement turned into a full-stack transformation: new architecture, credibility systems, and
+                compounding growth engines that eliminated confusion, generated 40+ testimonials, and delivered 285% traffic growth.
+              </p>
+            </div>
+
+            <div className="flex flex-wrap gap-3">
+              <Link
+                href="#results"
+                className="inline-flex items-center justify-center rounded-full bg-[#F2611D] px-6 py-3 font-semibold text-white shadow-lg hover:shadow-xl transition-all duration-300"
+              >
+                View the Outcomes
+              </Link>
+              <Link
+                href="#contact-section"
+                className="inline-flex items-center justify-center rounded-full border-2 border-white/70 px-6 py-3 font-semibold text-white/90 hover:bg-white/10 transition-all duration-300"
+              >
+                Start a Project
+              </Link>
+            </div>
           </motion.div>
         </div>
       </section>
 
       {/* Challenges Section */}
-      <section className="py-16 px-6 bg-[#f5f5f0]">
-        <div className="max-w-7xl mx-auto">
+      <section className="py-16 md:py-20">
+        <div className="max-w-6xl mx-auto px-4 md:px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="mb-12"
+            className="mb-10 space-y-3"
           >
-            <TextType
-              as="h2"
-              text="The Challenge"
-              className="text-5xl md:text-6xl lg:text-7xl font-black text-[#1a4d3a] mb-6 block"
-              typingSpeed={75}
-              pauseDuration={1500}
-              showCursor={false}
-              loop={false}
-              startOnVisible={true}
-            />
-            <p className="text-xl text-gray-700 max-w-3xl">
-              VITO Fryfilter came to us with a critical problem: despite having an innovative product, 
-              they were struggling with low website traffic, customer confusion, and minimal social proof. 
-              With a starting budget of just $500, we needed to create maximum impact.
+            <p className="text-xs font-semibold tracking-[0.25em] uppercase text-[#1a4d3a]/70">VITO Fryfilter · The Challenge</p>
+            <h2 className="text-3xl md:text-4xl font-black text-[#1a4d3a]">The Challenge</h2>
+            <p className="text-base md:text-lg text-[#1a4d3a]/80 max-w-3xl">
+              VITO had a world-class product yet a fragile U.S. presence: limited traffic, inconsistent messaging, and almost zero
+              social proof. We had to build trust quickly, starting with only $500.
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 gap-6">
+          <div className="grid gap-6 md:grid-cols-2">
             {challenges.map((challenge, index) => (
               <motion.div
                 key={index}
@@ -200,11 +178,11 @@ export default function VITOCaseStudy() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="bg-white rounded-lg p-6 shadow-md border border-gray-200"
+                className="bg-white rounded-2xl p-5 border border-gray-200 shadow-sm space-y-2"
               >
                 <div className="flex items-start gap-3">
                   <Target className="w-6 h-6 text-[#F2611D] flex-shrink-0 mt-1" />
-                  <p className="text-gray-700 text-lg">{challenge}</p>
+                  <p className="text-gray-700 text-base leading-relaxed">{challenge}</p>
                 </div>
               </motion.div>
             ))}
@@ -213,28 +191,23 @@ export default function VITOCaseStudy() {
       </section>
 
       {/* Solutions Section */}
-      <section className="py-16 px-6 bg-white">
-        <div className="max-w-7xl mx-auto">
+      <section className="py-16 md:py-20 bg-white">
+        <div className="max-w-6xl mx-auto px-4 md:px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="mb-12 text-center"
+            className="mb-10 space-y-3"
           >
-            <TextType
-              as="h2"
-              text="The Approach"
-              className="text-5xl md:text-6xl lg:text-7xl font-black text-[#1a4d3a] mb-6 block"
-              typingSpeed={75}
-              pauseDuration={1500}
-              showCursor={false}
-              loop={false}
-              startOnVisible={true}
-            />
+            <p className="text-xs font-semibold tracking-[0.25em] uppercase text-[#1a4d3a]/70">VITO Fryfilter · The Approach</p>
+            <h2 className="text-3xl md:text-4xl font-black text-[#1a4d3a]">The Approach</h2>
+            <p className="text-base md:text-lg text-gray-700 max-w-3xl">
+              Layered systems across product education, credibility, and conversion—engineered to keep compounding long after launch.
+            </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-6 lg:gap-8">
+          <div className="grid md:grid-cols-2 gap-6 lg:gap-8">
             {solutions.map((solution, index) => (
               <motion.div
                 key={index}
@@ -243,13 +216,13 @@ export default function VITOCaseStudy() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 whileHover={{ scale: 1.02 }}
-                className="bg-[#f5f5f0] rounded-lg p-8 lg:p-10 xl:p-12 border-2 border-gray-200 cursor-pointer transition-all duration-300 hover:border-[#F2611D] hover:shadow-lg group lg:min-h-[280px] xl:min-h-[320px] flex flex-col justify-between"
+                className="bg-[#f5f5f0] rounded-2xl p-6 border border-gray-200 transition-all duration-300 hover:border-[#F2611D] hover:shadow-lg group flex flex-col gap-3"
               >
                 <div>
-                  <h3 className="text-2xl lg:text-3xl font-black text-[#1a4d3a] mb-4 group-hover:text-[#F2611D] transition-colors duration-300">
+                  <h3 className="text-xl md:text-2xl font-black text-[#1a4d3a] group-hover:text-[#F2611D] transition-colors duration-300">
                     {solution.title}
                   </h3>
-                  <p className="text-gray-700 text-lg lg:text-xl leading-relaxed group-hover:text-gray-800 transition-colors duration-300">
+                  <p className="text-gray-700 text-base leading-relaxed group-hover:text-gray-800 transition-colors duration-300">
                     {solution.description}
                   </p>
                 </div>
@@ -260,58 +233,71 @@ export default function VITOCaseStudy() {
       </section>
 
       {/* Results Section */}
-      <section className="py-16 px-6 bg-[#1a4d3a]">
-        <div className="max-w-7xl mx-auto text-center">
+      <section id="results" className="py-16 md:py-20 bg-[#1a4d3a] text-white">
+        <div className="max-w-6xl mx-auto px-4 md:px-6 space-y-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
+            className="space-y-3"
           >
-            <TextType
-              as="h2"
-              text="The Results"
-              className="text-5xl md:text-6xl lg:text-7xl font-black text-white mb-6 block"
-              typingSpeed={75}
-              pauseDuration={1500}
-              showCursor={false}
-              loop={false}
-              startOnVisible={true}
-            />
-            <p className="text-xl text-white/90 max-w-3xl mx-auto mb-12">
-              Through strategic design, content creation, and system optimization, we transformed VITO Fryfilter 
-              from a struggling startup into a market leader with measurable results.
+            <p className="text-xs font-semibold tracking-[0.25em] uppercase text-white/60">VITO Fryfilter · Results</p>
+            <h2 className="text-3xl md:text-4xl font-bold">The Results: From Hidden Player to Market Leader</h2>
+            <p className="text-sm md:text-base text-white/80 max-w-3xl">
+              Within months, VITO went from a low-visibility importer to a category authority with reliable demand, social proof, and
+              systems that continue generating new business organically.
             </p>
           </motion.div>
+
+          <div className="grid gap-4 md:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+            {metrics.map((metric, index) => {
+              const Icon = metric.icon;
+              return (
+                <motion.div
+                  key={metric.label}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: 0.2 + index * 0.1 }}
+                  className="bg-white/10 rounded-xl p-5 text-center border border-white/20 space-y-2"
+                >
+                  <Icon className="w-8 h-8 text-[#F2611D] mx-auto" />
+                  <div className="text-3xl font-extrabold">{metric.value}</div>
+                  <div className="text-sm font-semibold uppercase tracking-wide text-white/90">{metric.label}</div>
+                  <p className="text-sm text-white/70">
+                    {metric.label === 'Traffic Growth' && 'Highest site traffic since entering the US market.'}
+                    {metric.label === 'Video Testimonials' && 'Authentic proof captured from chefs, owners, and operators.'}
+                    {metric.label === 'Customer Confusion Eliminated' && 'Clear messaging and flows that convert interest to purchase.'}
+                    {metric.label === 'Starting Budget' && 'Scaled from a $500 test to multi-market rollout.'}
+                  </p>
+                </motion.div>
+              );
+            })}
+          </div>
         </div>
       </section>
 
       {/* Video Testimonials Section */}
-      <section className="py-16 px-6 bg-gray-900">
-        <div className="max-w-7xl mx-auto">
+      <section className="py-16 md:py-20">
+        <div className="max-w-6xl mx-auto px-4 md:px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="text-center mb-12"
+            className="mb-10 space-y-3 text-left"
           >
-            <TextType
-              as="h2"
-              text="Client Success Stories"
-              className="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-4 block"
-              typingSpeed={75}
-              pauseDuration={1500}
-              showCursor={false}
-              loop={false}
-              startOnVisible={true}
-            />
-            <p className="text-lg text-gray-300 max-w-2xl mx-auto">
-              Real results from real clients. See how our digital solutions drive measurable business outcomes.
+            <p className="text-xs font-semibold tracking-[0.25em] uppercase text-[#1a4d3a]/70">
+              VITO Fryfilter · Client Success Stories
+            </p>
+            <h2 className="text-3xl md:text-4xl font-black text-[#1a4d3a]">Client Success Stories</h2>
+            <p className="text-base md:text-lg text-[#1a4d3a]/80 max-w-3xl">
+              Real kitchens, real operators—captured through the testimonial engine built specifically for VITO Fryfilter.
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
             {testimonials.map((testimonial, index) => (
               <motion.div
                 key={index}
@@ -319,7 +305,7 @@ export default function VITOCaseStudy() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="bg-white rounded-xl overflow-hidden shadow-xl"
+                className="bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-200"
               >
                 <div className="relative aspect-[9/16] bg-black">
                   <video
@@ -333,18 +319,21 @@ export default function VITOCaseStudy() {
                     Your browser does not support the video tag.
                   </video>
                 </div>
-                <div className="p-4">
-                  <h4 className="text-lg font-bold text-gray-900 mb-2">
+                <div className="p-5 space-y-2">
+                  <div className="inline-flex items-center text-[10px] uppercase tracking-[0.2em] text-[#F2611D] font-semibold">
+                    VITO
+                  </div>
+                  <h4 className="text-lg font-bold text-gray-900">
                     {testimonial.title}
                   </h4>
                   {(testimonial.clientName || testimonial.company) && (
-                    <p className="text-sm text-gray-500 mb-3">
+                    <p className="text-sm text-gray-500">
                       {testimonial.clientName && <span className="font-semibold">{testimonial.clientName}</span>}
                       {testimonial.clientName && testimonial.company && ' at '}
                       {testimonial.company && <span>{testimonial.company}</span>}
                     </p>
                   )}
-                  <p className="text-sm text-gray-600 leading-relaxed">
+                  <p className="text-sm text-gray-600 leading-relaxed line-clamp-4">
                     {testimonial.description}
                   </p>
                 </div>
@@ -355,29 +344,7 @@ export default function VITOCaseStudy() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 px-6 bg-[#f5f5f0]">
-        <div className="max-w-4xl mx-auto text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <h2 className="text-4xl md:text-5xl font-black text-[#1a4d3a] mb-6">
-              Ready to Transform Your Digital Presence?
-            </h2>
-            <p className="text-xl text-gray-700 mb-8">
-              Let's discuss how we can help you achieve similar results for your business.
-            </p>
-            <Link
-              href="/"
-              className="inline-block bg-[#1a4d3a] text-white px-8 py-4 rounded-md font-semibold text-lg hover:bg-[#2a5d4a] transition-colors shadow-lg"
-            >
-              Get Started Today
-            </Link>
-          </motion.div>
-        </div>
-      </section>
+      <SimplifiedCTA />
 
       <FooterV2 />
     </div>
