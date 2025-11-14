@@ -61,7 +61,13 @@ const NewHeader = () => {
             </Link>
 
             {/* Navigation */}
-            <div className="hidden md:flex items-center">
+            <div className="hidden md:flex items-center gap-6">
+              <Link
+                href="/blog"
+                className="text-white/90 hover:text-white transition-colors font-semibold text-base"
+              >
+                Blogs
+              </Link>
               <button
                 onClick={() => setIsContactModalOpen(true)}
                 className="bg-[#F2611D] hover:bg-[#ea580c] text-white px-6 py-2 rounded-md transition-all duration-300 font-medium shadow-lg hover:shadow-xl"
