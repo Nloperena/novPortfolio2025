@@ -46,13 +46,6 @@ const NewHeader = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [lastScrollY]);
 
-  const scrollToSection = (id: string) => {
-    const section = document.getElementById(id);
-    if (section) {
-      section.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
   return (
     <>
       <header 
@@ -68,17 +61,7 @@ const NewHeader = () => {
             </Link>
 
             {/* Navigation */}
-            <div className="hidden md:flex items-center gap-8">
-              <a 
-                href="#services-section"
-                onClick={(e) => {
-                  e.preventDefault();
-                  scrollToSection('services-section');
-                }}
-                className="text-white/95 hover:text-white transition-colors font-semibold text-base"
-              >
-                Work
-              </a>
+            <div className="hidden md:flex items-center">
               <button
                 onClick={() => setIsContactModalOpen(true)}
                 className="bg-[#F2611D] hover:bg-[#ea580c] text-white px-6 py-2 rounded-md transition-all duration-300 font-medium shadow-lg hover:shadow-xl"
