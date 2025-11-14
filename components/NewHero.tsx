@@ -164,7 +164,7 @@ const NewHero = React.memo(() => {
           <TextType
             as="h1"
             text="NICHOLAS LOPERENA"
-            className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-2 leading-tight block"
+            className="text-6xl md:text-7xl lg:text-8xl font-black text-white mb-2 leading-tight block"
             typingSpeed={75}
             pauseDuration={1500}
             showCursor={false}
@@ -182,7 +182,7 @@ const NewHero = React.memo(() => {
             startOnVisible={true}
             initialDelay={1500}
           />
-          <p className="text-base md:text-lg lg:text-xl text-white/80 mb-10 font-light uppercase tracking-wide">
+          <p className="text-lg md:text-xl lg:text-2xl text-white/80 mb-10 font-light uppercase tracking-wide">
             PORTFOLIO & CASE STUDIES
           </p>
 

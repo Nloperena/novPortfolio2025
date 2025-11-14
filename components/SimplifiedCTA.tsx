@@ -22,14 +22,14 @@ const SimplifiedCTA = () => {
             <TextType
               as="h2"
               text="Let's Build Your Project"
-              className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 font-kallisto block"
+              className="text-6xl md:text-7xl lg:text-8xl font-black text-white mb-4 font-kallisto block"
               typingSpeed={75}
               pauseDuration={1500}
               showCursor={false}
               loop={false}
               startOnVisible={true}
             />
-            <p className="text-lg md:text-xl text-white/90">
+            <p className="text-xl md:text-2xl text-white/90">
               Ready to upgrade your website? Tell me about your business and I'll show you what we can build.
             </p>
           </motion.div>

@@ -23,7 +23,7 @@ const AboutMeSection = () => {
           <TextType
             as="h2"
             text="More Than a Developer: Your Digital Architect"
-            className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#1a4d3a] mb-4 block"
+            className="text-6xl md:text-7xl lg:text-8xl font-black text-[#1a4d3a] mb-4 block"
             typingSpeed={75}
             pauseDuration={1500}
             showCursor={false}
@@ -46,13 +46,13 @@ const AboutMeSection = () => {
               From IT Support to Digital Architect: Building Beyond Code
             </h3>
 
-            <p className="text-sm md:text-base text-gray-700 leading-relaxed">
+            <p className="text-base md:text-lg text-gray-700 leading-relaxed">
               My journey began in IT support and marketing, where I discovered my passion for problem-solving and seeing the bigger picture. 
               I realized that the best solutions aren't just technically sound—they're strategically aligned with business goals and designed 
               to drive real, measurable results.
             </p>
 
-            <p className="text-sm md:text-base text-gray-700 leading-relaxed">
+            <p className="text-base md:text-lg text-gray-700 leading-relaxed">
               As a Digital Architect, I bridge the gap between business objectives and technical execution. My approach goes beyond writing code—I 
               architect systems that connect directly to ROI, performance metrics, and growth. Every solution I build is designed with conversion, 
               scalability, and long-term success in mind.
@@ -64,25 +64,25 @@ const AboutMeSection = () => {
               <ul className="space-y-2">
                 <li className="flex items-start gap-3">
                   <span className="text-[#1a4d3a] font-bold mt-1">•</span>
-                  <span className="text-sm md:text-base text-gray-700">
+                  <span className="text-base md:text-lg text-gray-700">
                     Alumnus of <span className="font-semibold">University of Central Florida</span>
                   </span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-[#1a4d3a] font-bold mt-1">•</span>
-                  <span className="text-sm md:text-base text-gray-700">
+                  <span className="text-base md:text-lg text-gray-700">
                     Full-Stack expertise across modern web technologies
                   </span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-[#1a4d3a] font-bold mt-1">•</span>
-                  <span className="text-sm md:text-base text-gray-700">
+                  <span className="text-base md:text-lg text-gray-700">
                     Hybrid AI + Video production proficiency
                   </span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-[#1a4d3a] font-bold mt-1">•</span>
-                  <span className="text-sm md:text-base text-gray-700">
+                  <span className="text-base md:text-lg text-gray-700">
                     Focus on "Code to Conversion" — measurable business impact
                   </span>
                 </li>

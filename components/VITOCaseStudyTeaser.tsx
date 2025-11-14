@@ -82,7 +82,7 @@ const VITOCaseStudyTeaser = () => {
           <span className="bg-[#F2611D]/20 border border-[#F2611D]/40 rounded-lg px-3 py-1 text-[#F2611D] font-bold text-xs uppercase tracking-wide mb-3 inline-block">
             Featured Case Study
           </span>
-          <h2 className="text-2xl md:text-3xl font-bold text-white mb-3">
+          <h2 className="text-6xl md:text-7xl lg:text-8xl font-black text-white mb-3">
             <TextType
               text="VITO Fryfilter: From $500 Crisis to Market Leader"
               className="inline"
@@ -93,7 +93,7 @@ const VITOCaseStudyTeaser = () => {
               startOnVisible={true}
             />
           </h2>
-          <p className="text-base text-gray-300 max-w-2xl mx-auto mb-6">
+          <p className="text-lg text-gray-300 max-w-2xl mx-auto mb-6">
             Complete digital transformation that eliminated customer confusion and drove 285% traffic growth.
           </p>
           
@@ -113,14 +113,14 @@ const VITOCaseStudyTeaser = () => {
         <TextType
           as="h3"
           text="Client Success Stories"
-          className="text-xl md:text-2xl font-bold text-white mb-2 block"
+          className="text-6xl md:text-7xl lg:text-8xl font-black text-white mb-2 block"
           typingSpeed={75}
           pauseDuration={1500}
           showCursor={false}
           loop={false}
           startOnVisible={true}
         />
-        <p className="text-sm text-gray-300 max-w-2xl mx-auto">
+        <p className="text-base text-gray-300 max-w-2xl mx-auto">
           Real results from real clients. See how our digital solutions drive measurable business outcomes.
         </p>
       </div>
@@ -195,7 +195,7 @@ const VITOCaseStudyTeaser = () => {
                       </p>
                     )}
                   </div>
-                  <p className="text-sm text-gray-600 leading-relaxed flex-1">
+                  <p className="text-base text-gray-600 leading-relaxed flex-1">
                     {testimonial.description}
                   </p>
                 </div>

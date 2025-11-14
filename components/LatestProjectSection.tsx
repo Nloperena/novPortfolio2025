@@ -18,7 +18,7 @@ const LatestProjectSection = () => {
           <TextType
             as="h2"
             text="Latest Project"
-            className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#1a4d3a] mb-4 block"
+            className="text-6xl md:text-7xl lg:text-8xl font-black text-[#1a4d3a] mb-4 block"
             typingSpeed={75}
             pauseDuration={1500}
             showCursor={false}
@@ -71,14 +71,14 @@ const LatestProjectSection = () => {
             <TextType
               as="h3"
               text="RuggedRed.com"
-              className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#1a4d3a] mb-6 block"
+              className="text-6xl md:text-7xl lg:text-8xl font-black text-[#1a4d3a] mb-6 block"
               typingSpeed={75}
               pauseDuration={1500}
               showCursor={false}
               loop={false}
               startOnVisible={true}
             />
-            <p className="text-lg md:text-xl text-gray-700 leading-relaxed mb-8">
+            <p className="text-xl md:text-2xl text-gray-700 leading-relaxed mb-8">
               A modern, high-performance website built with Next.js and React. This project showcases 
               cutting-edge web development practices, responsive design, and seamless user experience. 
               Built for speed, scalability, and optimal performance across all devices.
