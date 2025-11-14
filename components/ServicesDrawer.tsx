@@ -2,6 +2,15 @@
 
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { 
+  Layout, 
+  Globe, 
+  ShoppingCart, 
+  MapPin, 
+  Video, 
+  Brain,
+  ArrowRight
+} from 'lucide-react';
 
 interface ServicesDrawerProps {
   isOpen: boolean;
@@ -130,12 +139,36 @@ const ServicesDrawer = ({ isOpen, onClose }: ServicesDrawerProps) => {
   };
 
   const services = [
-    { name: 'Landing Pages', description: 'High-converting pages designed to capture leads.' },
-    { name: 'Brand Websites', description: 'Full-scale digital presence reflecting your brand identity.' },
-    { name: 'eCommerce Websites', description: 'Robust online stores built for sales growth.' },
-    { name: 'Google Business Management', description: 'Optimizing your local online presence for visibility.' },
-    { name: 'Top-end AI Media & Video', description: 'Cutting-edge content creation using AI for unique visuals.' },
-    { name: 'Artificial Intelligence Consulting', description: 'Integrating AI solutions to automate and innovate.' },
+    { 
+      name: 'Landing Pages', 
+      description: 'High-converting pages designed to capture leads.',
+      icon: Layout
+    },
+    { 
+      name: 'Brand Websites', 
+      description: 'Full-scale digital presence reflecting your brand identity.',
+      icon: Globe
+    },
+    { 
+      name: 'eCommerce Websites', 
+      description: 'Robust online stores built for sales growth.',
+      icon: ShoppingCart
+    },
+    { 
+      name: 'Google Business Management', 
+      description: 'Optimizing your local online presence for visibility.',
+      icon: MapPin
+    },
+    { 
+      name: 'Top-end AI Media & Video', 
+      description: 'Cutting-edge content creation using AI for unique visuals.',
+      icon: Video
+    },
+    { 
+      name: 'Artificial Intelligence Consulting', 
+      description: 'Integrating AI solutions to automate and innovate.',
+      icon: Brain
+    },
   ];
 
   return (
@@ -192,18 +225,47 @@ const ServicesDrawer = ({ isOpen, onClose }: ServicesDrawerProps) => {
             {currentView === 'list' ? (
               /* Services List View */
               <div className="mt-8">
-                <div className="space-y-1">
-                  {services.map((service) => (
-                    <button
-                      key={service.name}
-                      type="button"
-                      onClick={() => handleServiceSelect(service.name)}
-                      className="block w-full text-left rounded-lg px-4 py-4 text-base font-semibold leading-7 text-white hover:bg-gray-800 transition-colors focus:outline-none focus:ring-2 focus:ring-[#F2611D] focus:ring-offset-2 focus:ring-offset-gray-900"
-                    >
-                      {service.name}
-                      <p className="mt-1 text-sm font-normal text-gray-400">{service.description}</p>
-                    </button>
-                  ))}
+                <div className="space-y-2">
+                  {services.map((service) => {
+                    const IconComponent = service.icon;
+                    return (
+                      <button
+                        key={service.name}
+                        type="button"
+                        onClick={() => handleServiceSelect(service.name)}
+                        className="block w-full text-left rounded-lg px-4 py-4 text-white hover:bg-gray-800 transition-colors focus:outline-none focus:ring-2 focus:ring-[#F2611D] focus:ring-offset-2 focus:ring-offset-gray-900 group"
+                      >
+                        <div className="flex items-start gap-3">
+                          {IconComponent && (
+                            <IconComponent className="w-6 h-6 text-[#F2611D] flex-shrink-0 mt-0.5 group-hover:text-[#ff7a3d] transition-colors" />
+                          )}
+                          <div className="flex-1">
+                            <h3 className="text-lg font-bold leading-6 text-white mb-1">
+                              {service.name}
+                            </h3>
+                            <p className="text-sm text-gray-400 leading-relaxed">{service.description}</p>
+                          </div>
+                          <ArrowRight className="w-5 h-5 text-gray-500 group-hover:text-[#F2611D] transition-colors flex-shrink-0 mt-1" />
+                        </div>
+                      </button>
+                    );
+                  })}
+                </div>
+                
+                {/* CTA Button at Bottom */}
+                <div className="mt-8 pt-6 border-t border-gray-700">
+                  <motion.button
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    onClick={() => {
+                      onClose();
+                      // Dispatch custom event to trigger contact modal
+                      window.dispatchEvent(new CustomEvent('openContactModal'));
+                    }}
+                    className="w-full rounded-md bg-[#F2611D] px-6 py-3 text-base font-semibold text-white shadow-lg hover:bg-[#ff7a3d] transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#F2611D]"
+                  >
+                    Request a Consultation
+                  </motion.button>
                 </div>
               </div>
             ) : (
@@ -607,4 +669,6 @@ const ServicesDrawer = ({ isOpen, onClose }: ServicesDrawerProps) => {
 };
 
 export default ServicesDrawer;
+
+
 

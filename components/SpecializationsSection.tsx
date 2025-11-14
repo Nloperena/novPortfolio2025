@@ -140,3 +140,5 @@ const SpecializationsSection = () => {
 
 export default SpecializationsSection;
 
+
+

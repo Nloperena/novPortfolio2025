@@ -130,3 +130,5 @@ const FooterV2 = () => {
 
 export default FooterV2;
 
+
+

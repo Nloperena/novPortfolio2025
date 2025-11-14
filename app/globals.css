@@ -2,6 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Hide scrollbar utility */
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
 /* Custom marquee animation */
 @keyframes marquee-pixel-left {
   0% {
@@ -24,4 +34,6 @@
     scroll-snap-align: center;
   }
 }
+
+
 

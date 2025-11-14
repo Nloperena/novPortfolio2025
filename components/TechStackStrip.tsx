@@ -13,7 +13,7 @@ const TechStackStrip = () => {
   return (
     <section 
       aria-label="Tech stack"
-      className="bg-[#f5f5f0] py-6 border-b border-gray-200"
+      className="bg-[#f5f5f0] py-8 md:py-10 border-b border-gray-200"
     >
       <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6">
@@ -44,4 +44,6 @@ const TechStackStrip = () => {
 };
 
 export default TechStackStrip;
+
+
 

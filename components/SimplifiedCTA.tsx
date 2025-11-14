@@ -46,7 +46,7 @@ const SimplifiedCTA = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => setIsContactModalOpen(true)}
-              className="rounded-md bg-white text-[#1a4d3a] px-8 py-4 text-lg font-semibold transition-all duration-300 shadow-xl hover:shadow-2xl hover:bg-[#f5f5f0]"
+              className="rounded-md bg-[#F2611D] hover:bg-[#ff7a3d] text-white px-8 py-4 text-lg font-semibold transition-all duration-300 shadow-xl hover:shadow-2xl"
             >
               Contact Me
             </motion.button>

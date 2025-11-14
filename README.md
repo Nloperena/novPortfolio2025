@@ -43,3 +43,5 @@ npm run dev
   - `globals.css` - Global styles
 - `components/` - All React components (copied from src/components)
 
+
+

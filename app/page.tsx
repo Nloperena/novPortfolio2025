@@ -5,7 +5,8 @@ import CredibilityStrip from '@/components/CredibilityStrip';
 import TechStackStrip from '@/components/TechStackStrip';
 import AboutMeSection from '@/components/AboutMeSection';
 import LatestProjectSection from '@/components/LatestProjectSection';
-import VITOCaseStudyTeaser from '@/components/VITOCaseStudyTeaser';
+import VITOCaseStudySection from '@/components/VITOCaseStudySection';
+import TestimonialVideosGrid from '@/components/TestimonialVideosGrid';
 import SimplifiedCTA from '@/components/SimplifiedCTA';
 import FooterV2 from '@/components/FooterV2';
 import FloatingContactButton from '@/components/FloatingContactButton';
@@ -42,8 +43,10 @@ export default function Home() {
       {/* Latest Project Section */}
       <LatestProjectSection />
 
-      {/* VITO Case Study Teaser */}
-      <VITOCaseStudyTeaser />
+      {/* VITO Case Study Section */}
+      <VITOCaseStudySection />
+
+  
 
       {/* Simplified CTA Section */}
       <SimplifiedCTA />

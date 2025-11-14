@@ -174,7 +174,7 @@ const NewHero = React.memo(() => {
           <TextType
             as="p"
             text="DIGITAL ARCHITECT"
-            className="text-lg md:text-xl lg:text-2xl text-white/90 mb-2 font-light uppercase tracking-wide block"
+            className="text-lg md:text-xl lg:text-2xl text-[#F2611D] mb-2 font-semibold uppercase tracking-wide block"
             typingSpeed={75}
             pauseDuration={1500}
             showCursor={false}

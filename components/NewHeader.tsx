@@ -1,11 +1,22 @@
 'use client'
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import ContactModal from './ContactModal';
 
 const NewHeader = () => {
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
+
+  useEffect(() => {
+    const handleOpenContactModal = () => {
+      setIsContactModalOpen(true);
+    };
+
+    window.addEventListener('openContactModal', handleOpenContactModal);
+    return () => {
+      window.removeEventListener('openContactModal', handleOpenContactModal);
+    };
+  }, []);
 
   const scrollToSection = (id: string) => {
     const section = document.getElementById(id);
@@ -32,7 +43,7 @@ const NewHeader = () => {
                   e.preventDefault();
                   scrollToSection('services-section');
                 }}
-                className="text-white hover:text-[#2d6b52] transition-colors font-medium"
+                className="text-white/95 hover:text-white transition-colors font-semibold text-base"
               >
                 Work
               </a>

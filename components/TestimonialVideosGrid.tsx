@@ -79,23 +79,8 @@ const TestimonialVideosGrid: React.FC<TestimonialVideosGridProps> = ({
   description = 'Real results from real clients. See how our digital solutions drive measurable business outcomes.',
   showHeader = true
 }) => {
-  // Add VITO testimonial with metrics at the beginning
-  const vitoTestimonial: VideoTestimonial = {
-    videoUrl: 'https://cdn.shopify.com/s/files/1/0004/2496/8203/files/Caption_video_project-1_1__1_dbbb9822-d82e-45ee-9225-a25be9f41f0b.mp4?v=1724180981',
-    title: 'VITO Fryfilter',
-    description: 'Complete digital transformation that eliminated customer confusion, generated 40+ video testimonials, and drove massive traffic growth through strategic systems and modern design.',
-    clientName: 'VITO Team',
-    company: 'VITO Fryfilter Inc.',
-    metrics: [
-      { value: '$520K+', label: 'Revenue Generated', icon: TrendingUp, color: 'text-[#1a4d3a]' },
-      { value: '24x', label: 'ROAS', icon: Target, color: 'text-[#F2611D]' },
-      { value: '38%+', label: 'Conversion Lift', icon: Star, color: 'text-blue-600' },
-      { value: '285%', label: 'Traffic Growth', icon: Users, color: 'text-purple-600' }
-    ]
-  };
-
-  // Insert VITO at the beginning if we want it featured
-  const allTestimonials = [vitoTestimonial, ...testimonials];
+  // Use testimonials without VITO (VITO has its own dedicated section)
+  const allTestimonials = [...testimonials];
   
   // Duplicate testimonials multiple times for seamless infinite scroll
   const duplicatedTestimonials = [...allTestimonials, ...allTestimonials, ...allTestimonials];
