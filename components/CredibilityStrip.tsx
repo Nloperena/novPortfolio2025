@@ -10,7 +10,7 @@ const CredibilityStrip = () => {
     { name: 'VITO Fry Filter', logo: '/logos/vito-logo.png' },
     { name: 'Furniture Packages USA', logo: '/logos/furniture-packages-logo.png' },
     { name: 'Villa Marketers', logo: '/logos/villa-marketers-logo.png' },
-    { name: 'KNOCKX', logo: '/logos/knockx-logo.png' },
+    { name: 'KNOKX', logo: '/logos/knockx-logo.png' },
   ];
 
   const containerRef = useRef<HTMLDivElement>(null);

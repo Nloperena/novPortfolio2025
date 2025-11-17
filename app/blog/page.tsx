@@ -40,8 +40,7 @@ export default function BlogIndexPage() {
           <div className="space-y-2">
             <h2 className="text-2xl md:text-3xl font-bold text-[#1a4d3a]">Latest Writing</h2>
             <p className="text-base text-[#1a4d3a]/80 max-w-3xl">
-              Curated breakdowns from active client work, including the exact systems that turn a $500 diagnostic into enduring
-              market leverage.
+              Thoughts on development, architecture, and building systems that compound over time.
             </p>
           </div>
 
