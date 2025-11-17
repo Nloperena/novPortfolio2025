@@ -6,7 +6,7 @@ import Link from "next/link";
 import NewHeader from "@/components/NewHeader";
 import FooterV2 from "@/components/FooterV2";
 import SimplifiedCTA from "@/components/SimplifiedCTA";
-import FaultyTerminal from "@/components/FaultyTerminal";
+import LetterGlitch from "@/components/LetterGlitch";
 import { blogPosts } from "@/data/blogPosts";
 
 interface BlogDetailPageProps {
@@ -27,7 +27,13 @@ export default function BlogDetailPage({ params }: BlogDetailPageProps) {
       {/* Hero */}
       <section className="relative pt-32 pb-16 md:pb-20 bg-[#1a4d3a] text-white overflow-hidden">
         <div className="absolute inset-0 opacity-35 pointer-events-none">
-          <FaultyTerminal pause={false} mouseReact={false} timeScale={0.15} className="w-full h-full" />
+          <LetterGlitch
+            glitchColors={['#1a4d3a', '#61dca3', '#61b3dc', '#F2611D']}
+            glitchSpeed={50}
+            centerVignette={true}
+            outerVignette={false}
+            smooth={true}
+          />
         </div>
         <div className="relative max-w-6xl mx-auto px-4 md:px-6 space-y-6">
           <div className="flex flex-wrap items-center gap-3 text-xs uppercase tracking-[0.3em] text-white/70">

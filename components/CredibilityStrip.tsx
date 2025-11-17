@@ -138,11 +138,11 @@ const CredibilityStrip = () => {
       aria-label="Brands ticker"
       className="border-y border-slate-200 bg-white/80 backdrop-blur-sm"
     >
-      <div className="max-w-6xl mx-auto px-4 md:px-6 py-3 flex flex-wrap items-center justify-between gap-3 text-sm">
+      <div className="w-full px-4 md:px-6 py-3 flex flex-wrap items-center justify-between gap-3 text-sm">
         {/* Label */}
         <div className="flex-shrink-0">
           <p className="text-sm text-gray-600 font-medium whitespace-nowrap">
-            Browse by case study
+            Companies I've worked for:
           </p>
         </div>
 
