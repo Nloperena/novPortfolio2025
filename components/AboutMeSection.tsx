@@ -5,11 +5,13 @@ import { motion } from 'framer-motion';
 import CurvedLoop from './CurvedLoop';
 import TextType from './TextType';
 
+import TiltCard from '@/components/TiltCard';
+
 const AboutMeSection = () => {
   return (
-    <section 
+    <section
       aria-label="About Me"
-      className="bg-[#f5f5f0] py-20 md:py-24"
+      className="bg-[#05110e] py-20 md:py-24 border-t border-white/5"
     >
       <div className="max-w-6xl mx-auto px-4 md:px-6">
         {/* Section Title */}
@@ -20,16 +22,16 @@ const AboutMeSection = () => {
           transition={{ duration: 0.6 }}
           className="mb-6"
         >
-            <TextType
-              as="h2"
-              text="More Than a Developer: A Digital Architect for Your Growth"
-              className="text-3xl md:text-4xl lg:text-5xl font-black text-[#1a4d3a] block text-left"
-              typingSpeed={75}
-              pauseDuration={1500}
-              showCursor={false}
-              loop={false}
-              startOnVisible={true}
-            />
+          <TextType
+            as="h2"
+            text="Beyond Code: Architecting Digital Dominance"
+            className="text-3xl md:text-4xl lg:text-5xl font-black text-white block text-left"
+            typingSpeed={75}
+            pauseDuration={1500}
+            showCursor={false}
+            loop={false}
+            startOnVisible={true}
+          />
         </motion.div>
 
         {/* Two Column Layout */}
@@ -40,50 +42,68 @@ const AboutMeSection = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="space-y-4"
+            className="space-y-6"
           >
-            <h3 className="text-xl md:text-2xl font-bold text-gray-900">
-              From IT Support to Digital Architect: Building Beyond Code
-            </h3>
+            {/* Where I started */}
+            <div>
+              <h3 className="text-lg md:text-xl font-bold text-white mb-2">
+                The Foundation
+              </h3>
+              <p className="text-base md:text-lg text-gray-400 leading-relaxed">
+                My roots in IT and marketing revealed a critical gap: the disconnect between technical execution and business strategy. I realized that code without purpose is just noise.
+              </p>
+            </div>
 
-            <p className="text-base md:text-lg text-gray-700 leading-relaxed">
-              My journey began in IT support and marketing, where I discovered my passion for problem-solving and seeing the bigger picture. 
-              I realized that the best solutions aren't just technically sound—they're strategically aligned with business goals and designed 
-              to drive real, measurable results.
-            </p>
+            {/* What I do now */}
+            <div>
+              <h3 className="text-lg md:text-xl font-bold text-white mb-2">
+                The Architecture
+              </h3>
+              <p className="text-base md:text-lg text-gray-400 leading-relaxed">
+                I bridge that gap. As a Digital Architect, I engineer systems that are not just functional, but foundational to organizational revenue growth. I build engines of conversion.
+              </p>
+            </div>
 
-            <p className="text-base md:text-lg text-gray-700 leading-relaxed">
-              As a Digital Architect, I bridge the gap between business objectives and technical execution. My approach goes beyond writing code—I 
-              architect systems that connect directly to ROI, performance metrics, and growth. Every solution I build is designed with conversion, 
-              scalability, and long-term success in mind.
-            </p>
+            {/* Who I help */}
+            <div>
+              <h3 className="text-lg md:text-xl font-bold text-white mb-2">
+                The Partners
+              </h3>
+              <p className="text-base md:text-lg text-gray-400 leading-relaxed">
+                Visionary B2B and industrial leaders ready to transform their digital presence from a liability into their strongest asset.
+              </p>
+            </div>
+
+            {/* The Legacy */}
+            <div className="pt-4 border-t border-white/10">
+              <h3 className="text-lg md:text-xl font-bold text-white mb-2">
+                The Legacy
+              </h3>
+              <p className="text-base md:text-lg text-gray-400 leading-relaxed">
+                My work is built on a foundation that spans <strong className="text-white">300 years</strong>—from the Pyrenees to Puerto Rico to Florida. Systems thinking runs in the bloodline: logistics, law, industry, and now code. Every architecture I build carries that lineage forward.
+              </p>
+            </div>
 
             {/* Key Qualifications */}
-            <div className="mt-3">
-              <h4 className="text-base md:text-lg font-semibold text-gray-900 mb-3">Key Qualifications</h4>
+            <div className="pt-4 border-t border-white/10">
+              <h4 className="text-base md:text-lg font-semibold text-white mb-3">Key Qualifiers</h4>
               <ul className="space-y-2">
                 <li className="flex items-start gap-3">
-                  <span className="text-[#1a4d3a] font-bold mt-1">•</span>
-                  <span className="text-base md:text-lg text-gray-700">
-                    Alumnus of <span className="font-semibold">University of Central Florida</span>
+                  <span className="text-[#F2611D] font-bold mt-1">•</span>
+                  <span className="text-base md:text-lg text-gray-400">
+                    <strong>Alumnus</strong> – Computer Science foundation with 6+ years building production systems
                   </span>
                 </li>
                 <li className="flex items-start gap-3">
-                  <span className="text-[#1a4d3a] font-bold mt-1">•</span>
-                  <span className="text-base md:text-lg text-gray-700">
-                    Full-Stack expertise across modern web technologies
+                  <span className="text-[#F2611D] font-bold mt-1">•</span>
+                  <span className="text-base md:text-lg text-gray-400">
+                    <strong>Proven Impact</strong> – VITO (70+ testimonials, record traffic), RuggedRed, and more
                   </span>
                 </li>
                 <li className="flex items-start gap-3">
-                  <span className="text-[#1a4d3a] font-bold mt-1">•</span>
-                  <span className="text-base md:text-lg text-gray-700">
-                    Hybrid AI + Video production proficiency
-                  </span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-[#1a4d3a] font-bold mt-1">•</span>
-                  <span className="text-base md:text-lg text-gray-700">
-                    Focus on "Code to Conversion" — measurable business impact
+                  <span className="text-[#F2611D] font-bold mt-1">•</span>
+                  <span className="text-base md:text-lg text-gray-400">
+                    <strong>Conversion Obsessed</strong> – Every line of code serves a business outcome
                   </span>
                 </li>
               </ul>
@@ -96,24 +116,26 @@ const AboutMeSection = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="relative"
+            className="relative perspective-1000 md:sticky md:top-24"
           >
             {/* Single, Dominant Headshot */}
-            <div className="w-full max-w-sm ml-auto rounded-lg overflow-hidden shadow-2xl">
-              <img
-                src="https://media.licdn.com/dms/image/v2/D4E03AQGkyoWF6XLw_Q/profile-displayphoto-crop_800_800/B4EZk5boiUIkAI-/0/1757605170745?e=1764806400&v=beta&t=dAWY-djuCly_Y7PJV1JJ_yRFc165bpj8PQPZbJNphi4"
-                alt="Nicholas Loperena - Digital Architect"
-                className="w-full h-auto object-cover"
-              />
-            </div>
+            <TiltCard>
+              <div className="w-full max-w-sm ml-auto rounded-lg overflow-hidden shadow-[0_0_40px_rgba(242,97,29,0.15)] border border-[#F2611D]/30">
+                <img
+                  src="https://media.licdn.com/dms/image/v2/D4E03AQGkyoWF6XLw_Q/profile-displayphoto-crop_800_800/B4EZk5boiUIkAI-/0/1757605170745?e=1764806400&v=beta&t=dAWY-djuCly_Y7PJV1JJ_yRFc165bpj8PQPZbJNphi4"
+                  alt="Nicholas Loperena - Digital Architect"
+                  className="w-full h-auto object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                />
+              </div>
+            </TiltCard>
 
             {/* Elegant "About Me" Card - Bottom Corner */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ 
-                duration: 0.6, 
+              transition={{
+                duration: 0.6,
                 delay: 0.3,
                 type: "spring",
                 stiffness: 200
@@ -133,15 +155,17 @@ const AboutMeSection = () => {
           </motion.div>
         </div>
       </div>
-      
-      {/* Curved Loop Marquee at tail end of About section */}
-      <CurvedLoop 
+
+      {/* Curved Loop Marquee at tail end of About section - Slowed down and spaced out */}
+      <div className="mb-32">
+      <CurvedLoop
         marqueeText="Creative ✦ Developer ✦ Architect ✦ Designer ✦"
-        speed={0.8}
+            speed={0.2}
         curveAmount={180}
         direction="right"
         interactive={true}
       />
+      </div>
     </section>
   );
 };

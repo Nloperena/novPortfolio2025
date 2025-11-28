@@ -94,11 +94,11 @@ export default function VITOCaseStudy() {
   ];
 
   return (
-    <div className="relative overflow-x-hidden bg-[#f5f5f0] min-h-screen flex flex-col">
+    <div className="relative overflow-x-hidden bg-[#020805] min-h-screen flex flex-col">
       <NewHeader />
 
       {/* Hero Section */}
-      <section className="pt-32 pb-16 md:pb-20 bg-[#1a4d3a] text-white">
+      <section className="pt-32 pb-16 md:pb-20 bg-[#05110e] text-white border-b border-white/5">
         <div className="max-w-6xl mx-auto px-4 md:px-6 space-y-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -108,11 +108,11 @@ export default function VITOCaseStudy() {
           >
             <Link
               href="/"
-              className="inline-flex items-center gap-2 text-white/70 hover:text-white transition-colors text-sm"
+              className="inline-flex items-center gap-2 text-gray-400 hover:text-[#F2611D] transition-colors text-sm"
             >
               <ArrowLeft className="w-4 h-4" />
               Back to Portfolio
-              <span className="text-[10px] uppercase tracking-[0.25em] bg-white/10 px-2 py-0.5 rounded-full">
+              <span className="text-[10px] uppercase tracking-[0.25em] bg-white/10 px-2 py-0.5 rounded-full text-white">
                 Case Study
               </span>
             </Link>
@@ -128,7 +128,7 @@ export default function VITOCaseStudy() {
                 loop={false}
                 startOnVisible={true}
               />
-              <p className="text-base md:text-lg text-white/85 leading-relaxed">
+              <p className="text-base md:text-lg text-gray-400 leading-relaxed">
                 A $500 diagnostic engagement turned into a full-stack transformation: new architecture, credibility systems, and
                 compounding growth engines that eliminated confusion, generated 40+ testimonials, and delivered 285% traffic growth.
               </p>
@@ -137,13 +137,13 @@ export default function VITOCaseStudy() {
             <div className="flex flex-wrap gap-3">
               <Link
                 href="#results"
-                className="inline-flex items-center justify-center rounded-full bg-[#F2611D] px-6 py-3 font-semibold text-white shadow-lg hover:shadow-xl transition-all duration-300"
+                className="inline-flex items-center justify-center rounded-full bg-[#F2611D] px-6 py-3 font-semibold text-white shadow-lg hover:shadow-xl transition-all duration-300 hover:bg-[#ff7a3d]"
               >
                 View the Outcomes
               </Link>
               <Link
                 href="#contact-section"
-                className="inline-flex items-center justify-center rounded-full border-2 border-white/70 px-6 py-3 font-semibold text-white/90 hover:bg-white/10 transition-all duration-300"
+                className="inline-flex items-center justify-center rounded-full border border-white/20 px-6 py-3 font-semibold text-white hover:bg-white/5 transition-all duration-300"
               >
                 Start a Project
               </Link>
@@ -162,9 +162,9 @@ export default function VITOCaseStudy() {
             transition={{ duration: 0.6 }}
             className="mb-10 space-y-3"
           >
-            <p className="text-xs font-semibold tracking-[0.25em] uppercase text-[#1a4d3a]/70">VITO Fryfilter · The Challenge</p>
-            <h2 className="text-3xl md:text-4xl font-black text-[#1a4d3a]">The Challenge</h2>
-            <p className="text-base md:text-lg text-[#1a4d3a]/80 max-w-3xl">
+            <p className="text-xs font-semibold tracking-[0.25em] uppercase text-[#F2611D]">VITO Fryfilter · The Challenge</p>
+            <h2 className="text-3xl md:text-4xl font-black text-white">The Challenge</h2>
+            <p className="text-base md:text-lg text-gray-400 max-w-3xl">
               VITO had a world-class product yet a fragile U.S. presence: limited traffic, inconsistent messaging, and almost zero
               social proof. We had to build trust quickly, starting with only $500.
             </p>
@@ -178,11 +178,11 @@ export default function VITOCaseStudy() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="bg-white rounded-2xl p-5 border border-gray-200 shadow-sm space-y-2"
+                className="bg-[#050505] rounded-2xl p-5 border border-white/10 shadow-sm space-y-2"
               >
                 <div className="flex items-start gap-3">
                   <Target className="w-6 h-6 text-[#F2611D] flex-shrink-0 mt-1" />
-                  <p className="text-gray-700 text-base leading-relaxed">{challenge}</p>
+                  <p className="text-gray-300 text-base leading-relaxed">{challenge}</p>
                 </div>
               </motion.div>
             ))}
@@ -191,7 +191,7 @@ export default function VITOCaseStudy() {
       </section>
 
       {/* Solutions Section */}
-      <section className="py-16 md:py-20 bg-white">
+      <section className="py-16 md:py-20 bg-[#05110e] border-y border-white/5">
         <div className="max-w-6xl mx-auto px-4 md:px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -200,9 +200,9 @@ export default function VITOCaseStudy() {
             transition={{ duration: 0.6 }}
             className="mb-10 space-y-3"
           >
-            <p className="text-xs font-semibold tracking-[0.25em] uppercase text-[#1a4d3a]/70">VITO Fryfilter · The Approach</p>
-            <h2 className="text-3xl md:text-4xl font-black text-[#1a4d3a]">The Approach</h2>
-            <p className="text-base md:text-lg text-gray-700 max-w-3xl">
+            <p className="text-xs font-semibold tracking-[0.25em] uppercase text-[#F2611D]">VITO Fryfilter · The Approach</p>
+            <h2 className="text-3xl md:text-4xl font-black text-white">The Approach</h2>
+            <p className="text-base md:text-lg text-gray-400 max-w-3xl">
               Layered systems across product education, credibility, and conversion—engineered to keep compounding long after launch.
             </p>
           </motion.div>
@@ -216,13 +216,13 @@ export default function VITOCaseStudy() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 whileHover={{ scale: 1.02 }}
-                className="bg-[#f5f5f0] rounded-2xl p-6 border border-gray-200 transition-all duration-300 hover:border-[#F2611D] hover:shadow-lg group flex flex-col gap-3"
+                className="bg-[#050505] rounded-2xl p-6 border border-white/10 transition-all duration-300 hover:border-[#F2611D]/50 hover:shadow-lg group flex flex-col gap-3"
               >
                 <div>
-                  <h3 className="text-xl md:text-2xl font-black text-[#1a4d3a] group-hover:text-[#F2611D] transition-colors duration-300">
+                  <h3 className="text-xl md:text-2xl font-black text-white group-hover:text-[#F2611D] transition-colors duration-300">
                     {solution.title}
                   </h3>
-                  <p className="text-gray-700 text-base leading-relaxed group-hover:text-gray-800 transition-colors duration-300">
+                  <p className="text-gray-400 text-base leading-relaxed group-hover:text-gray-300 transition-colors duration-300">
                     {solution.description}
                   </p>
                 </div>
@@ -233,7 +233,7 @@ export default function VITOCaseStudy() {
       </section>
 
       {/* Results Section */}
-      <section id="results" className="py-16 md:py-20 bg-[#1a4d3a] text-white">
+      <section id="results" className="py-16 md:py-20 bg-[#020805] text-white">
         <div className="max-w-6xl mx-auto px-4 md:px-6 space-y-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -242,9 +242,9 @@ export default function VITOCaseStudy() {
             transition={{ duration: 0.6 }}
             className="space-y-3"
           >
-            <p className="text-xs font-semibold tracking-[0.25em] uppercase text-white/60">VITO Fryfilter · Results</p>
+            <p className="text-xs font-semibold tracking-[0.25em] uppercase text-[#F2611D]">VITO Fryfilter · Results</p>
             <h2 className="text-3xl md:text-4xl font-bold">The Results: From Hidden Player to Market Leader</h2>
-            <p className="text-sm md:text-base text-white/80 max-w-3xl">
+            <p className="text-sm md:text-base text-gray-400 max-w-3xl">
               Within months, VITO went from a low-visibility importer to a category authority with reliable demand, social proof, and
               systems that continue generating new business organically.
             </p>
@@ -260,12 +260,12 @@ export default function VITOCaseStudy() {
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: 0.2 + index * 0.1 }}
-                  className="bg-white/10 rounded-xl p-5 text-center border border-white/20 space-y-2"
+                  className="bg-white/5 rounded-xl p-5 text-center border border-white/10 space-y-2 hover:bg-white/10 transition-colors"
                 >
                   <Icon className="w-8 h-8 text-[#F2611D] mx-auto" />
-                  <div className="text-3xl font-extrabold">{metric.value}</div>
+                  <div className="text-3xl font-extrabold text-white">{metric.value}</div>
                   <div className="text-sm font-semibold uppercase tracking-wide text-white/90">{metric.label}</div>
-                  <p className="text-sm text-white/70">
+                  <p className="text-sm text-gray-500">
                     {metric.label === 'Traffic Growth' && 'Highest site traffic since entering the US market.'}
                     {metric.label === 'Video Testimonials' && 'Authentic proof captured from chefs, owners, and operators.'}
                     {metric.label === 'Customer Confusion Eliminated' && 'Clear messaging and flows that convert interest to purchase.'}
@@ -288,11 +288,11 @@ export default function VITOCaseStudy() {
             transition={{ duration: 0.6 }}
             className="mb-10 space-y-3 text-left"
           >
-            <p className="text-xs font-semibold tracking-[0.25em] uppercase text-[#1a4d3a]/70">
+            <p className="text-xs font-semibold tracking-[0.25em] uppercase text-[#F2611D]">
               VITO Fryfilter · Client Success Stories
             </p>
-            <h2 className="text-3xl md:text-4xl font-black text-[#1a4d3a]">Client Success Stories</h2>
-            <p className="text-base md:text-lg text-[#1a4d3a]/80 max-w-3xl">
+            <h2 className="text-3xl md:text-4xl font-black text-white">Client Success Stories</h2>
+            <p className="text-base md:text-lg text-gray-400 max-w-3xl">
               Real kitchens, real operators—captured through the testimonial engine built specifically for VITO Fryfilter.
             </p>
           </motion.div>
@@ -305,7 +305,7 @@ export default function VITOCaseStudy() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="bg-white rounded-2xl overflow-hidden shadow-lg border border-gray-200"
+                className="bg-[#050505] rounded-2xl overflow-hidden shadow-lg border border-white/10 group"
               >
                 <div className="relative aspect-[9/16] bg-black">
                   <video
@@ -313,7 +313,7 @@ export default function VITOCaseStudy() {
                     autoPlay
                     muted
                     loop
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover opacity-70 group-hover:opacity-100 transition-opacity"
                   >
                     <source src={testimonial.videoUrl} type="video/mp4" />
                     Your browser does not support the video tag.
@@ -323,17 +323,17 @@ export default function VITOCaseStudy() {
                   <div className="inline-flex items-center text-[10px] uppercase tracking-[0.2em] text-[#F2611D] font-semibold">
                     VITO
                   </div>
-                  <h4 className="text-lg font-bold text-gray-900">
+                  <h4 className="text-lg font-bold text-white">
                     {testimonial.title}
                   </h4>
                   {(testimonial.clientName || testimonial.company) && (
-                    <p className="text-sm text-gray-500">
-                      {testimonial.clientName && <span className="font-semibold">{testimonial.clientName}</span>}
+                    <p className="text-sm text-gray-400">
+                      {testimonial.clientName && <span className="font-semibold text-white">{testimonial.clientName}</span>}
                       {testimonial.clientName && testimonial.company && ' at '}
                       {testimonial.company && <span>{testimonial.company}</span>}
                     </p>
                   )}
-                  <p className="text-sm text-gray-600 leading-relaxed line-clamp-4">
+                  <p className="text-sm text-gray-500 leading-relaxed line-clamp-4">
                     {testimonial.description}
                   </p>
                 </div>

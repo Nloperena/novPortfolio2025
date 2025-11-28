@@ -1,53 +1,70 @@
 'use client'
 
 import React, { useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { 
-  Layout, 
-  Globe, 
-  ShoppingCart, 
+  TrendingUp, 
   MapPin, 
-  Video, 
-  Brain,
-  ArrowRight
+  Zap,
+  ArrowRight,
+  X,
+  MessageCircle,
+  ChevronLeft
 } from 'lucide-react';
 
 interface ServicesDrawerProps {
   isOpen: boolean;
   onClose: () => void;
+  onOpen?: () => void;
 }
 
 interface FormResponses {
+  project_type?: string;
   goal?: string;
-  current_content?: string;
   budget?: string;
   timeline?: string;
+  start_timeframe?: string;
+  contact_name?: string;
   contact_email?: string;
-  project_type?: string;
-  current_website?: string;
+  website_url?: string;
   products_count?: string;
-  target_audience?: string;
-  existing_platform?: string;
   automation_needs?: string;
+  location_area?: string;
+  message?: string;
 }
 
-const ServicesDrawer = ({ isOpen, onClose }: ServicesDrawerProps) => {
-  const [currentView, setCurrentView] = useState<'list' | 'qualification'>('list');
+const ServicesDrawer = ({ isOpen, onClose, onOpen }: ServicesDrawerProps) => {
+  const [currentView, setCurrentView] = useState<'list' | 'qualification' | 'contact'>('list');
   const [selectedService, setSelectedService] = useState<string>('');
   const [formResponses, setFormResponses] = useState<FormResponses>({});
+  const [isAnimating, setIsAnimating] = useState(false);
+
+  // Remember selected service in sessionStorage
+  useEffect(() => {
+    if (selectedService) {
+      sessionStorage.setItem('lastSelectedService', selectedService);
+    }
+  }, [selectedService]);
+
+  // Restore last selected service on open
+  useEffect(() => {
+    if (isOpen && !selectedService) {
+      const lastSelected = sessionStorage.getItem('lastSelectedService');
+      if (lastSelected) {
+        setSelectedService(lastSelected);
+      }
+    }
+  }, [isOpen, selectedService]);
 
   // Close on Escape key press
   useEffect(() => {
     const handleEscape = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        onClose();
-        setCurrentView('list');
+      if (event.key === 'Escape' && isOpen) {
+        handleClose();
       }
     };
 
     if (isOpen) {
       document.addEventListener('keydown', handleEscape);
-      // Prevent body scroll when drawer is open
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = '';
@@ -57,21 +74,60 @@ const ServicesDrawer = ({ isOpen, onClose }: ServicesDrawerProps) => {
       document.removeEventListener('keydown', handleEscape);
       document.body.style.overflow = '';
     };
-  }, [isOpen, onClose]);
+  }, [isOpen]);
 
   // Reset view when drawer is closed externally
   useEffect(() => {
     if (!isOpen) {
-      setCurrentView('list');
-      setFormResponses({});
-      setSelectedService('');
+      setTimeout(() => {
+        setCurrentView('list');
+        setFormResponses({});
+      }, 300);
     }
   }, [isOpen]);
 
+  const handleClose = () => {
+    setIsAnimating(true);
+    setTimeout(() => {
+      onClose();
+      setIsAnimating(false);
+    }, 300);
+  };
+
   const handleServiceSelect = (serviceName: string) => {
-    setSelectedService(serviceName);
-    setCurrentView('qualification');
-    setFormResponses({});
+    setIsAnimating(true);
+    setTimeout(() => {
+      setSelectedService(serviceName);
+      setCurrentView('qualification');
+      setFormResponses({ project_type: serviceName });
+      setIsAnimating(false);
+      
+      console.log('Service selected:', serviceName);
+      if (typeof window !== 'undefined' && (window as any).gtag) {
+        (window as any).gtag('event', 'service_selected', {
+          service_name: serviceName
+        });
+      }
+    }, 150);
+  };
+
+  const handleDirectContact = () => {
+    setIsAnimating(true);
+    setTimeout(() => {
+      setSelectedService('');
+      setCurrentView('contact');
+      setFormResponses({});
+      setIsAnimating(false);
+    }, 150);
+  };
+
+  const handleBack = () => {
+    setIsAnimating(true);
+    setTimeout(() => {
+      setCurrentView('list');
+      setFormResponses({});
+      setIsAnimating(false);
+    }, 150);
   };
 
   const handleFormChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
@@ -82,593 +138,510 @@ const ServicesDrawer = ({ isOpen, onClose }: ServicesDrawerProps) => {
   const submitQualification = (e: React.FormEvent) => {
     e.preventDefault();
     
-    let messageBody = `${selectedService} Qualification:\n\n`;
-    
-    // Build message body based on service type
-    if (selectedService === 'Top-end AI Media & Video') {
-      messageBody += `Project Goal: ${formResponses.goal || 'N/A'}\n` +
-                     `Current Content: ${formResponses.current_content || 'N/A'}\n` +
-                     `Budget Range: ${formResponses.budget || 'N/A'}\n` +
-                     `Timeline: ${formResponses.timeline || 'N/A'}\n`;
-    } else if (selectedService === 'Landing Pages') {
-      messageBody += `Project Goal: ${formResponses.goal || 'N/A'}\n` +
-                     `Target Audience: ${formResponses.target_audience || 'N/A'}\n` +
-                     `Current Website: ${formResponses.current_website || 'N/A'}\n` +
-                     `Budget Range: ${formResponses.budget || 'N/A'}\n` +
-                     `Timeline: ${formResponses.timeline || 'N/A'}\n`;
-    } else if (selectedService === 'Brand Websites') {
-      messageBody += `Project Type: ${formResponses.project_type || 'N/A'}\n` +
-                     `Current Website: ${formResponses.current_website || 'N/A'}\n` +
-                     `Target Audience: ${formResponses.target_audience || 'N/A'}\n` +
-                     `Budget Range: ${formResponses.budget || 'N/A'}\n` +
-                     `Timeline: ${formResponses.timeline || 'N/A'}\n`;
-    } else if (selectedService === 'eCommerce Websites') {
-      messageBody += `Products/SKUs: ${formResponses.products_count || 'N/A'}\n` +
-                     `Existing Platform: ${formResponses.existing_platform || 'N/A'}\n` +
-                     `Target Audience: ${formResponses.target_audience || 'N/A'}\n` +
-                     `Budget Range: ${formResponses.budget || 'N/A'}\n` +
-                     `Timeline: ${formResponses.timeline || 'N/A'}\n`;
-    } else if (selectedService === 'Google Business Management') {
-      messageBody += `Current Status: ${formResponses.current_website || 'N/A'}\n` +
-                     `Business Type: ${formResponses.project_type || 'N/A'}\n` +
-                     `Target Audience: ${formResponses.target_audience || 'N/A'}\n` +
-                     `Budget Range: ${formResponses.budget || 'N/A'}\n` +
-                     `Timeline: ${formResponses.timeline || 'N/A'}\n`;
-    } else if (selectedService === 'Artificial Intelligence Consulting') {
-      messageBody += `Automation Needs: ${formResponses.automation_needs || 'N/A'}\n` +
-                     `Current Systems: ${formResponses.current_website || 'N/A'}\n` +
-                     `Project Goal: ${formResponses.goal || 'N/A'}\n` +
-                     `Budget Range: ${formResponses.budget || 'N/A'}\n` +
-                     `Timeline: ${formResponses.timeline || 'N/A'}\n`;
+    let messageBody = `${selectedService} Project Inquiry:\n\n`;
+    messageBody += `What are you trying to achieve?\n${formResponses.goal || 'N/A'}\n\n`;
+    if (formResponses.budget) {
+      messageBody += `Budget Range: ${formResponses.budget}\n`;
+    }
+    if (formResponses.start_timeframe) {
+      messageBody += `Ideal Start: ${formResponses.start_timeframe}\n`;
+    }
+    if (formResponses.timeline) {
+      messageBody += `Timeline: ${formResponses.timeline}\n\n`;
     }
     
-    messageBody += `Contact: ${formResponses.contact_email || 'N/A'}`;
+    if (selectedService === 'Revenue Websites' && formResponses.products_count) {
+      messageBody += `Products/SKUs: ${formResponses.products_count}\n`;
+    }
+    if (selectedService === 'AI-Powered Media & Funnels' && formResponses.automation_needs) {
+      messageBody += `Workflow Automation: ${formResponses.automation_needs}\n`;
+    }
+    if (selectedService === 'Local Visibility & Google Systems' && formResponses.location_area) {
+      messageBody += `Target Location: ${formResponses.location_area}\n`;
+    }
+    
+    messageBody += `\nContact Information:\n`;
+    messageBody += `Name: ${formResponses.contact_name || 'N/A'}\n`;
+    messageBody += `Email: ${formResponses.contact_email || 'N/A'}\n`;
+    if (formResponses.website_url) {
+      messageBody += `Website: ${formResponses.website_url}\n`;
+    }
 
-    const subject = encodeURIComponent(`${selectedService} Qualification`);
+    const subject = encodeURIComponent(`${selectedService} Project Inquiry`);
     const mailtoLink = `mailto:nicholasloperena@gmail.com?subject=${subject}&body=${encodeURIComponent(messageBody)}`;
 
     window.location.href = mailtoLink;
     
-    // Close drawer after a brief delay to allow mailto to open
+    console.log('Form submitted:', selectedService);
+    if (typeof window !== 'undefined' && (window as any).gtag) {
+      (window as any).gtag('event', 'project_inquiry_submitted', {
+        service_name: selectedService
+      });
+    }
+    
     setTimeout(() => {
-      onClose();
-      setCurrentView('list');
-      setFormResponses({});
-      setSelectedService('');
+      handleClose();
+    }, 100);
+  };
+
+  const submitDirectContact = (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    let messageBody = `Direct Contact Inquiry:\n\n`;
+    if (formResponses.message) {
+      messageBody += `Message:\n${formResponses.message}\n\n`;
+    }
+    if (formResponses.goal) {
+      messageBody += `What I'm looking for: ${formResponses.goal}\n\n`;
+    }
+    if (formResponses.budget) {
+      messageBody += `Budget Range: ${formResponses.budget}\n`;
+    }
+    if (formResponses.timeline) {
+      messageBody += `Timeline: ${formResponses.timeline}\n\n`;
+    }
+    
+    messageBody += `Contact Information:\n`;
+    messageBody += `Name: ${formResponses.contact_name || 'N/A'}\n`;
+    messageBody += `Email: ${formResponses.contact_email || 'N/A'}\n`;
+    if (formResponses.website_url) {
+      messageBody += `Website: ${formResponses.website_url}\n`;
+    }
+
+    const subject = encodeURIComponent('Project Inquiry');
+    const mailtoLink = `mailto:nicholasloperena@gmail.com?subject=${subject}&body=${encodeURIComponent(messageBody)}`;
+
+    window.location.href = mailtoLink;
+    
+    console.log('Direct contact submitted');
+    if (typeof window !== 'undefined' && (window as any).gtag) {
+      (window as any).gtag('event', 'direct_contact_submitted');
+    }
+    
+    setTimeout(() => {
+      handleClose();
     }, 100);
   };
 
   const services = [
     { 
-      name: 'Landing Pages', 
-      description: 'High-converting pages designed to capture leads.',
-      icon: Layout
+      name: 'Revenue Websites', 
+      eyebrow: 'WEB SYSTEMS',
+      description: 'Turn visitors into booked calls and sales.',
+      subline: 'Includes: Landing pages, brand sites, eCommerce',
+      icon: TrendingUp,
+      isPopular: true
     },
     { 
-      name: 'Brand Websites', 
-      description: 'Full-scale digital presence reflecting your brand identity.',
-      icon: Globe
+      name: 'Local Visibility & Google Systems', 
+      eyebrow: 'LOCAL GROWTH',
+      description: 'Make your business impossible to ignore in search and maps.',
+      subline: 'Includes: Google Business Management & Local SEO',
+      icon: MapPin,
+      isPopular: false
     },
     { 
-      name: 'eCommerce Websites', 
-      description: 'Robust online stores built for sales growth.',
-      icon: ShoppingCart
-    },
-    { 
-      name: 'Google Business Management', 
-      description: 'Optimizing your local online presence for visibility.',
-      icon: MapPin
-    },
-    { 
-      name: 'Top-end AI Media & Video', 
-      description: 'Cutting-edge content creation using AI for unique visuals.',
-      icon: Video
-    },
-    { 
-      name: 'Artificial Intelligence Consulting', 
-      description: 'Integrating AI solutions to automate and innovate.',
-      icon: Brain
+      name: 'AI-Powered Media & Funnels', 
+      eyebrow: 'AI-DRIVEN GROWTH',
+      description: 'Turn your best ideas into automated workflows that run every day.',
+      subline: 'Includes: AI Media/Video & AI Consulting',
+      icon: Zap,
+      isPopular: false
     },
   ];
 
+  // Trigger onOpen callback when modal becomes visible
+  useEffect(() => {
+    if (isOpen && onOpen) {
+      onOpen();
+    }
+  }, [isOpen, onOpen]);
+
   return (
-    <AnimatePresence>
-      {isOpen && (
-        <>
-          {/* Backdrop */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-40 bg-gray-900/50"
-            onClick={onClose}
-            aria-hidden={!isOpen}
-          />
+    <>
+      {/* Backdrop */}
+      <div 
+        className={`fixed inset-0 z-40 bg-black/50 transition-opacity duration-300 will-change-opacity ${
+          isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
+        }`}
+        onClick={handleClose}
+        aria-hidden={!isOpen}
+        style={{ 
+          contain: 'layout style paint',
+          transform: 'translateZ(0)'
+        }}
+      />
 
-          {/* Drawer */}
-          <motion.div
-            initial={{ x: '100%' }}
-            animate={{ x: 0 }}
-            exit={{ x: '100%' }}
-            transition={{ duration: 0.3, ease: 'easeInOut' }}
-            className="fixed inset-y-0 right-0 z-50 w-full max-w-2xl bg-gray-900 p-8 shadow-2xl overflow-y-auto"
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="services-drawer-title"
-          >
-            <div className="flex items-center justify-between pb-6 border-b border-gray-700">
-              <h2 id="services-drawer-title" className="text-2xl md:text-3xl font-bold text-white">
-                {currentView === 'list' ? 'Discover My Services' : `Your ${selectedService} Project`}
-              </h2>
-              <button
-                type="button"
-                className="-m-2.5 rounded-md p-2.5 text-gray-400 hover:text-white transition-colors"
-                onClick={() => {
-                  onClose();
-                  setCurrentView('list');
-                }}
-                aria-label="Close menu"
-              >
-                <svg
-                  className="h-6 w-6"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth="1.5"
-                  stroke="currentColor"
+      {/* Side Panel */}
+      <div 
+        className={`fixed right-0 top-1/2 -translate-y-1/2 z-50 w-full max-w-md bg-white shadow-2xl rounded-l-2xl transition-transform duration-300 ease-out overflow-hidden will-change-transform ${
+          isOpen ? 'translate-x-0' : 'translate-x-full pointer-events-none'
+        }`}
+        style={{ 
+          maxHeight: '90vh',
+          contain: 'layout style paint',
+          backfaceVisibility: 'hidden'
+        }}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="drawer-title"
+      >
+        {/* Header */}
+        <div className="sticky top-0 z-10 bg-white border-b border-gray-200 px-6 py-4 rounded-tl-2xl">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              {currentView !== 'list' && (
+                <button
+                  type="button"
+                  onClick={handleBack}
+                  className="p-2 -ml-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-full transition-colors"
+                  aria-label="Go back"
                 >
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
+                  <ChevronLeft className="w-5 h-5" />
+                </button>
+              )}
+              <div>
+                <h2 id="drawer-title" className="text-xl font-bold text-gray-900">
+                  {currentView === 'list' ? "Let's Design Your Next Growth System" : 
+                   currentView === 'contact' ? "Let's Start a Conversation" :
+                   selectedService}
+                </h2>
+                {currentView === 'list' && (
+                  <p className="text-xs text-gray-500 mt-0.5">
+                    Step 1 · Pick where you need the most help
+                  </p>
+                )}
+                {currentView === 'qualification' && (
+                  <p className="text-xs text-gray-500 mt-0.5">
+                    Step 2 · Share a few details so I can map your system
+                  </p>
+                )}
+                {currentView === 'contact' && (
+                  <p className="text-xs text-gray-500 mt-0.5">
+                    Tell me what you're working on
+                  </p>
+                )}
+              </div>
             </div>
+            <button
+              type="button"
+              onClick={handleClose}
+              className="p-2 -mr-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-full transition-colors"
+              aria-label="Close menu"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          </div>
+        </div>
 
+        {/* Content */}
+        <div className="overflow-y-auto" style={{ maxHeight: 'calc(90vh - 73px)' }}>
+          <div className={`px-6 py-6 transition-opacity duration-200 ${isAnimating ? 'opacity-0' : 'opacity-100'}`}>
             {currentView === 'list' ? (
               /* Services List View */
-              <div className="mt-8">
-                <div className="space-y-2">
-                  {services.map((service) => {
-                    const IconComponent = service.icon;
-                    return (
-                      <button
-                        key={service.name}
-                        type="button"
-                        onClick={() => handleServiceSelect(service.name)}
-                        className="block w-full text-left rounded-lg px-4 py-4 text-white hover:bg-gray-800 transition-colors focus:outline-none focus:ring-2 focus:ring-[#F2611D] focus:ring-offset-2 focus:ring-offset-gray-900 group"
-                      >
-                        <div className="flex items-start gap-3">
-                          {IconComponent && (
-                            <IconComponent className="w-6 h-6 text-[#F2611D] flex-shrink-0 mt-0.5 group-hover:text-[#ff7a3d] transition-colors" />
-                          )}
-                          <div className="flex-1">
-                            <h3 className="text-lg font-bold leading-6 text-white mb-1">
-                              {service.name}
-                            </h3>
-                            <p className="text-sm text-gray-400 leading-relaxed">{service.description}</p>
-                          </div>
-                          <ArrowRight className="w-5 h-5 text-gray-500 group-hover:text-[#F2611D] transition-colors flex-shrink-0 mt-1" />
+              <div className="space-y-3">
+                {services.map((service) => {
+                  const IconComponent = service.icon;
+                  const isSelected = selectedService === service.name;
+                  return (
+                    <button
+                      key={service.name}
+                      type="button"
+                      onClick={() => handleServiceSelect(service.name)}
+                      className={`relative w-full text-left rounded-xl px-5 py-4 transition-all duration-200 ${
+                        isSelected 
+                          ? 'bg-[#F2611D]/5 border-2 border-[#F2611D] shadow-sm' 
+                          : 'bg-gray-50 border border-gray-200 hover:bg-gray-100 hover:border-gray-300 shadow-sm'
+                      }`}
+                    >
+                      {service.isPopular && (
+                        <div className="absolute top-3 right-3 hidden sm:inline-flex">
+                          <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold bg-[#F2611D] text-white">
+                            Best place to start
+                          </span>
                         </div>
-                      </button>
-                    );
-                  })}
-                </div>
-                
-                {/* CTA Button at Bottom */}
-                <div className="mt-8 pt-6 border-t border-gray-700">
-                  <motion.button
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    onClick={() => {
-                      onClose();
-                      // Dispatch custom event to trigger contact modal
-                      window.dispatchEvent(new CustomEvent('openContactModal'));
-                    }}
-                    className="w-full rounded-md bg-[#F2611D] px-6 py-3 text-base font-semibold text-white shadow-lg hover:bg-[#ff7a3d] transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#F2611D]"
-                  >
-                    Request a Consultation
-                  </motion.button>
-                </div>
+                      )}
+                      <div className="flex items-start gap-4 pr-8">
+                        {IconComponent && (
+                          <IconComponent className={`w-5 h-5 flex-shrink-0 mt-0.5 ${
+                            isSelected ? 'text-[#F2611D]' : 'text-gray-400'
+                          }`} />
+                        )}
+                        <div className="flex-1 min-w-0">
+                          <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1">
+                            {service.eyebrow}
+                          </p>
+                          <h3 className="text-base font-bold text-gray-900 mb-1.5 leading-tight">
+                            {service.name}
+                          </h3>
+                          <p className="text-sm text-gray-700 leading-snug mb-1">{service.description}</p>
+                          <p className="text-xs text-gray-500">{service.subline}</p>
+                        </div>
+                        <ArrowRight className={`w-4 h-4 flex-shrink-0 mt-1 ${
+                          isSelected ? 'text-[#F2611D]' : 'text-gray-400'
+                        }`} />
+                      </div>
+                    </button>
+                  );
+                })}
+
+                {/* Direct Contact Option */}
+                <button
+                  type="button"
+                  onClick={handleDirectContact}
+                  className="relative w-full text-left rounded-xl px-5 py-4 bg-gray-50 border border-gray-200 hover:bg-gray-100 hover:border-gray-300 shadow-sm transition-all duration-200"
+                >
+                  <div className="flex items-start gap-4">
+                    <MessageCircle className="w-5 h-5 flex-shrink-0 mt-0.5 text-gray-400" />
+                    <div className="flex-1 min-w-0">
+                      <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1">
+                        DIRECT CONTACT
+                      </p>
+                      <h3 className="text-base font-bold text-gray-900 mb-1.5 leading-tight">
+                        Just want to chat?
+                      </h3>
+                      <p className="text-sm text-gray-700 leading-snug">Skip the form and tell me what you're working on.</p>
+                    </div>
+                    <ArrowRight className="w-4 h-4 flex-shrink-0 mt-1 text-gray-400" />
+                  </div>
+                </button>
               </div>
-            ) : (
-              /* Qualification Form View */
-              <div className="mt-8">
-                <p className="text-gray-300 text-sm mb-6">
-                  To best understand your vision and how I can deliver an exceptional solution, please share a few details about your project below.
+            ) : currentView === 'contact' ? (
+              /* Direct Contact Form */
+              <form onSubmit={submitDirectContact} className="space-y-5">
+                <div>
+                  <label htmlFor="contact_name" className="block text-sm font-medium text-gray-700 mb-1.5">
+                    Your Name
+                  </label>
+                  <input
+                    type="text"
+                    name="contact_name"
+                    id="contact_name"
+                    required
+                    className="w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm text-gray-900 placeholder-gray-400 focus:border-[#F2611D] focus:ring-2 focus:ring-[#F2611D]/20 transition-colors"
+                    placeholder="John Doe"
+                    value={formResponses.contact_name || ''}
+                    onChange={handleFormChange}
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="contact_email" className="block text-sm font-medium text-gray-700 mb-1.5">
+                    Your Email
+                  </label>
+                  <input
+                    type="email"
+                    name="contact_email"
+                    id="contact_email"
+                    required
+                    className="w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm text-gray-900 placeholder-gray-400 focus:border-[#F2611D] focus:ring-2 focus:ring-[#F2611D]/20 transition-colors"
+                    placeholder="you@example.com"
+                    value={formResponses.contact_email || ''}
+                    onChange={handleFormChange}
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1.5">
+                    Your Message
+                  </label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    required
+                    rows={6}
+                    className="w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm text-gray-900 placeholder-gray-400 focus:border-[#F2611D] focus:ring-2 focus:ring-[#F2611D]/20 transition-colors resize-none"
+                    placeholder="Tell me about your project, challenges, goals, or anything else you'd like me to know..."
+                    value={formResponses.message || ''}
+                    onChange={handleFormChange}
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="goal" className="block text-sm font-medium text-gray-700 mb-1.5">
+                    What are you looking for? (optional)
+                  </label>
+                  <textarea
+                    id="goal"
+                    name="goal"
+                    rows={3}
+                    className="w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm text-gray-900 placeholder-gray-400 focus:border-[#F2611D] focus:ring-2 focus:ring-[#F2611D]/20 transition-colors resize-none"
+                    placeholder="Brief description of your project..."
+                    value={formResponses.goal || ''}
+                    onChange={handleFormChange}
+                  />
+                </div>
+
+                <div className="flex gap-3 pt-4">
+                  <button
+                    type="submit"
+                    className="flex-1 rounded-lg bg-[#F2611D] px-4 py-3 text-sm font-semibold text-white shadow-sm hover:bg-[#ff7a3d] transition-colors focus:outline-none focus:ring-2 focus:ring-[#F2611D] focus:ring-offset-2"
+                  >
+                    Send Message
+                  </button>
+                </div>
+
+                <p className="text-xs text-gray-500 text-center">
+                  You'll hear back from me in 1–2 business days.
                 </p>
+              </form>
+            ) : (
+              /* Qualification Form */
+              <form onSubmit={submitQualification} className="space-y-5">
+                {/* Selected Service Indicator */}
+                <div className="bg-[#F2611D]/5 border border-[#F2611D]/20 rounded-lg px-4 py-2.5 flex items-center justify-between">
+                  <span className="text-sm font-medium text-gray-900">{selectedService}</span>
+                  <button
+                    type="button"
+                    onClick={handleBack}
+                    className="text-xs text-[#F2611D] hover:text-[#ff7a3d] font-medium"
+                  >
+                    Change
+                  </button>
+                </div>
 
-                <form onSubmit={submitQualification} className="space-y-6">
-                  {/* AI Media & Video Specific Fields */}
-                  {selectedService === 'Top-end AI Media & Video' && (
-                    <>
-                      <div>
-                        <label htmlFor="goal" className="block text-sm font-medium text-white mb-2">
-                          What is the primary goal for this AI-generated media/video?
-                        </label>
-                        <input
-                          type="text"
-                          name="goal"
-                          id="goal"
-                          required
-                          className="block w-full rounded-md border border-gray-700 bg-gray-800 text-white shadow-sm focus:border-[#F2611D] focus:ring-[#F2611D] sm:text-sm p-3"
-                          placeholder="e.g., brand awareness, product demonstration, social engagement"
-                          value={formResponses.goal || ''}
-                          onChange={handleFormChange}
-                        />
-                      </div>
-                      <div>
-                        <label htmlFor="current_content" className="block text-sm font-medium text-white mb-2">
-                          Do you have existing footage or content I can leverage?
-                        </label>
-                        <select
-                          id="current_content"
-                          name="current_content"
-                          required
-                          className="block w-full rounded-md border border-gray-700 bg-gray-800 text-white shadow-sm focus:border-[#F2611D] focus:ring-[#F2611D] sm:text-sm p-3"
-                          value={formResponses.current_content || ''}
-                          onChange={handleFormChange}
-                        >
-                          <option value="">Please select...</option>
-                          <option value="Yes, high quality">Yes, high quality footage/assets</option>
-                          <option value="Yes, low quality">Yes, some low quality footage/assets</option>
-                          <option value="No, start from scratch">No, I need you to create everything from scratch</option>
-                        </select>
-                      </div>
-                    </>
-                  )}
+                <div>
+                  <label htmlFor="goal" className="block text-sm font-medium text-gray-700 mb-1.5">
+                    What are you trying to achieve?
+                  </label>
+                  <textarea
+                    id="goal"
+                    name="goal"
+                    required
+                    rows={4}
+                    className="w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm text-gray-900 placeholder-gray-400 focus:border-[#F2611D] focus:ring-2 focus:ring-[#F2611D]/20 transition-colors resize-none"
+                    placeholder="Describe your goals, challenges, or what success looks like..."
+                    value={formResponses.goal || ''}
+                    onChange={handleFormChange}
+                  />
+                </div>
 
-                  {/* Landing Pages Specific Fields */}
-                  {selectedService === 'Landing Pages' && (
-                    <>
-                      <div>
-                        <label htmlFor="goal" className="block text-sm font-medium text-white mb-2">
-                          What is the primary goal for this landing page?
-                        </label>
-                        <input
-                          type="text"
-                          name="goal"
-                          id="goal"
-                          required
-                          className="block w-full rounded-md border border-gray-700 bg-gray-800 text-white shadow-sm focus:border-[#F2611D] focus:ring-[#F2611D] sm:text-sm p-3"
-                          placeholder="e.g., lead generation, product launch, event registration"
-                          value={formResponses.goal || ''}
-                          onChange={handleFormChange}
-                        />
-                      </div>
-                      <div>
-                        <label htmlFor="target_audience" className="block text-sm font-medium text-white mb-2">
-                          Who is your target audience?
-                        </label>
-                        <input
-                          type="text"
-                          name="target_audience"
-                          id="target_audience"
-                          required
-                          className="block w-full rounded-md border border-gray-700 bg-gray-800 text-white shadow-sm focus:border-[#F2611D] focus:ring-[#F2611D] sm:text-sm p-3"
-                          placeholder="e.g., B2B decision makers, consumers, enterprise clients"
-                          value={formResponses.target_audience || ''}
-                          onChange={handleFormChange}
-                        />
-                      </div>
-                      <div>
-                        <label htmlFor="current_website" className="block text-sm font-medium text-white mb-2">
-                          Do you currently have a website?
-                        </label>
-                        <select
-                          id="current_website"
-                          name="current_website"
-                          required
-                          className="block w-full rounded-md border border-gray-700 bg-gray-800 text-white shadow-sm focus:border-[#F2611D] focus:ring-[#F2611D] sm:text-sm p-3"
-                          value={formResponses.current_website || ''}
-                          onChange={handleFormChange}
-                        >
-                          <option value="">Please select...</option>
-                          <option value="Yes, existing website">Yes, I have an existing website</option>
-                          <option value="No, starting fresh">No, this will be my first website</option>
-                        </select>
-                      </div>
-                    </>
-                  )}
-
-                  {/* Brand Websites Specific Fields */}
-                  {selectedService === 'Brand Websites' && (
-                    <>
-                      <div>
-                        <label htmlFor="project_type" className="block text-sm font-medium text-white mb-2">
-                          What type of project is this?
-                        </label>
-                        <select
-                          id="project_type"
-                          name="project_type"
-                          required
-                          className="block w-full rounded-md border border-gray-700 bg-gray-800 text-white shadow-sm focus:border-[#F2611D] focus:ring-[#F2611D] sm:text-sm p-3"
-                          value={formResponses.project_type || ''}
-                          onChange={handleFormChange}
-                        >
-                          <option value="">Please select...</option>
-                          <option value="New website build">New website build</option>
-                          <option value="Website redesign">Website redesign</option>
-                          <option value="Brand refresh">Brand refresh</option>
-                        </select>
-                      </div>
-                      <div>
-                        <label htmlFor="current_website" className="block text-sm font-medium text-white mb-2">
-                          Do you currently have a website?
-                        </label>
-                        <input
-                          type="text"
-                          name="current_website"
-                          id="current_website"
-                          className="block w-full rounded-md border border-gray-700 bg-gray-800 text-white shadow-sm focus:border-[#F2611D] focus:ring-[#F2611D] sm:text-sm p-3"
-                          placeholder="e.g., www.example.com or No current website"
-                          value={formResponses.current_website || ''}
-                          onChange={handleFormChange}
-                        />
-                      </div>
-                      <div>
-                        <label htmlFor="target_audience" className="block text-sm font-medium text-white mb-2">
-                          Who is your target audience?
-                        </label>
-                        <input
-                          type="text"
-                          name="target_audience"
-                          id="target_audience"
-                          required
-                          className="block w-full rounded-md border border-gray-700 bg-gray-800 text-white shadow-sm focus:border-[#F2611D] focus:ring-[#F2611D] sm:text-sm p-3"
-                          placeholder="e.g., B2B professionals, consumers, enterprise clients"
-                          value={formResponses.target_audience || ''}
-                          onChange={handleFormChange}
-                        />
-                      </div>
-                    </>
-                  )}
-
-                  {/* eCommerce Websites Specific Fields */}
-                  {selectedService === 'eCommerce Websites' && (
-                    <>
-                      <div>
-                        <label htmlFor="products_count" className="block text-sm font-medium text-white mb-2">
-                          Approximately how many products/SKUs will you be selling?
-                        </label>
-                        <select
-                          id="products_count"
-                          name="products_count"
-                          required
-                          className="block w-full rounded-md border border-gray-700 bg-gray-800 text-white shadow-sm focus:border-[#F2611D] focus:ring-[#F2611D] sm:text-sm p-3"
-                          value={formResponses.products_count || ''}
-                          onChange={handleFormChange}
-                        >
-                          <option value="">Please select...</option>
-                          <option value="1-50 products">1-50 products</option>
-                          <option value="51-200 products">51-200 products</option>
-                          <option value="201-500 products">201-500 products</option>
-                          <option value="500+ products">500+ products</option>
-                        </select>
-                      </div>
-                      <div>
-                        <label htmlFor="existing_platform" className="block text-sm font-medium text-white mb-2">
-                          Do you currently sell on any platform?
-                        </label>
-                        <select
-                          id="existing_platform"
-                          name="existing_platform"
-                          required
-                          className="block w-full rounded-md border border-gray-700 bg-gray-800 text-white shadow-sm focus:border-[#F2611D] focus:ring-[#F2611D] sm:text-sm p-3"
-                          value={formResponses.existing_platform || ''}
-                          onChange={handleFormChange}
-                        >
-                          <option value="">Please select...</option>
-                          <option value="No, starting fresh">No, starting fresh</option>
-                          <option value="Shopify">Shopify</option>
-                          <option value="WooCommerce">WooCommerce</option>
-                          <option value="Amazon/eBay">Amazon/eBay</option>
-                          <option value="Other platform">Other platform</option>
-                        </select>
-                      </div>
-                      <div>
-                        <label htmlFor="target_audience" className="block text-sm font-medium text-white mb-2">
-                          Who is your target audience?
-                        </label>
-                        <input
-                          type="text"
-                          name="target_audience"
-                          id="target_audience"
-                          required
-                          className="block w-full rounded-md border border-gray-700 bg-gray-800 text-white shadow-sm focus:border-[#F2611D] focus:ring-[#F2611D] sm:text-sm p-3"
-                          placeholder="e.g., consumers, B2B buyers, wholesale clients"
-                          value={formResponses.target_audience || ''}
-                          onChange={handleFormChange}
-                        />
-                      </div>
-                    </>
-                  )}
-
-                  {/* Google Business Management Specific Fields */}
-                  {selectedService === 'Google Business Management' && (
-                    <>
-                      <div>
-                        <label htmlFor="current_website" className="block text-sm font-medium text-white mb-2">
-                          What is your current Google Business status?
-                        </label>
-                        <select
-                          id="current_website"
-                          name="current_website"
-                          required
-                          className="block w-full rounded-md border border-gray-700 bg-gray-800 text-white shadow-sm focus:border-[#F2611D] focus:ring-[#F2611D] sm:text-sm p-3"
-                          value={formResponses.current_website || ''}
-                          onChange={handleFormChange}
-                        >
-                          <option value="">Please select...</option>
-                          <option value="No Google Business profile">No Google Business profile</option>
-                          <option value="Existing profile, needs optimization">Existing profile, needs optimization</option>
-                          <option value="Active profile, needs management">Active profile, needs ongoing management</option>
-                        </select>
-                      </div>
-                      <div>
-                        <label htmlFor="project_type" className="block text-sm font-medium text-white mb-2">
-                          What type of business is this?
-                        </label>
-                        <input
-                          type="text"
-                          name="project_type"
-                          id="project_type"
-                          required
-                          className="block w-full rounded-md border border-gray-700 bg-gray-800 text-white shadow-sm focus:border-[#F2611D] focus:ring-[#F2611D] sm:text-sm p-3"
-                          placeholder="e.g., restaurant, retail store, service business"
-                          value={formResponses.project_type || ''}
-                          onChange={handleFormChange}
-                        />
-                      </div>
-                      <div>
-                        <label htmlFor="target_audience" className="block text-sm font-medium text-white mb-2">
-                          Who is your target audience?
-                        </label>
-                        <input
-                          type="text"
-                          name="target_audience"
-                          id="target_audience"
-                          required
-                          className="block w-full rounded-md border border-gray-700 bg-gray-800 text-white shadow-sm focus:border-[#F2611D] focus:ring-[#F2611D] sm:text-sm p-3"
-                          placeholder="e.g., local customers, tourists, B2B clients"
-                          value={formResponses.target_audience || ''}
-                          onChange={handleFormChange}
-                        />
-                      </div>
-                    </>
-                  )}
-
-                  {/* AI Consulting Specific Fields */}
-                  {selectedService === 'Artificial Intelligence Consulting' && (
-                    <>
-                      <div>
-                        <label htmlFor="automation_needs" className="block text-sm font-medium text-white mb-2">
-                          What processes or workflows would you like to automate?
-                        </label>
-                        <textarea
-                          id="automation_needs"
-                          name="automation_needs"
-                          required
-                          rows={4}
-                          className="block w-full rounded-md border border-gray-700 bg-gray-800 text-white shadow-sm focus:border-[#F2611D] focus:ring-[#F2611D] sm:text-sm p-3"
-                          placeholder="e.g., customer support, data analysis, content generation, lead qualification"
-                          value={formResponses.automation_needs || ''}
-                          onChange={handleFormChange}
-                        />
-                      </div>
-                      <div>
-                        <label htmlFor="current_website" className="block text-sm font-medium text-white mb-2">
-                          What systems or platforms do you currently use?
-                        </label>
-                        <input
-                          type="text"
-                          name="current_website"
-                          id="current_website"
-                          required
-                          className="block w-full rounded-md border border-gray-700 bg-gray-800 text-white shadow-sm focus:border-[#F2611D] focus:ring-[#F2611D] sm:text-sm p-3"
-                          placeholder="e.g., CRM, CMS, eCommerce platform, custom systems"
-                          value={formResponses.current_website || ''}
-                          onChange={handleFormChange}
-                        />
-                      </div>
-                      <div>
-                        <label htmlFor="goal" className="block text-sm font-medium text-white mb-2">
-                          What is the primary goal for AI integration?
-                        </label>
-                        <input
-                          type="text"
-                          name="goal"
-                          id="goal"
-                          required
-                          className="block w-full rounded-md border border-gray-700 bg-gray-800 text-white shadow-sm focus:border-[#F2611D] focus:ring-[#F2611D] sm:text-sm p-3"
-                          placeholder="e.g., increase efficiency, reduce costs, improve customer experience"
-                          value={formResponses.goal || ''}
-                          onChange={handleFormChange}
-                        />
-                      </div>
-                    </>
-                  )}
-
-                  {/* Common Fields (Budget, Timeline, Email) */}
+                {selectedService === 'Revenue Websites' && (
                   <div>
-                    <label htmlFor="budget" className="block text-sm font-medium text-white mb-2">
-                      What is your estimated budget range for this project?
+                    <label htmlFor="products_count" className="block text-sm font-medium text-gray-700 mb-1.5">
+                      How many products? (optional)
                     </label>
                     <select
-                      id="budget"
-                      name="budget"
-                      required
-                      className="block w-full rounded-md border border-gray-700 bg-gray-800 text-white shadow-sm focus:border-[#F2611D] focus:ring-[#F2611D] sm:text-sm p-3"
-                      value={formResponses.budget || ''}
+                      id="products_count"
+                      name="products_count"
+                      className="w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm text-gray-900 focus:border-[#F2611D] focus:ring-2 focus:ring-[#F2611D]/20 transition-colors"
+                      value={formResponses.products_count || ''}
                       onChange={handleFormChange}
                     >
-                      <option value="">Please select...</option>
-                      <option value="$1,000 - $5,000">$1,000 - $5,000</option>
-                      <option value="$5,000 - $15,000">$5,000 - $15,000</option>
-                      <option value="$15,000+">$15,000+</option>
-                      <option value="Undecided / Discuss">Undecided / Let's discuss</option>
+                      <option value="">Not applicable</option>
+                      <option value="1-50 products">1-50 products</option>
+                      <option value="51-200 products">51-200 products</option>
+                      <option value="201-500 products">201-500 products</option>
+                      <option value="500+ products">500+ products</option>
                     </select>
                   </div>
+                )}
 
+                {selectedService === 'AI-Powered Media & Funnels' && (
                   <div>
-                    <label htmlFor="timeline" className="block text-sm font-medium text-white mb-2">
-                      What is your ideal project timeline?
+                    <label htmlFor="automation_needs" className="block text-sm font-medium text-gray-700 mb-1.5">
+                      What workflow to automate? (optional)
                     </label>
                     <input
                       type="text"
-                      name="timeline"
-                      id="timeline"
-                      required
-                      className="block w-full rounded-md border border-gray-700 bg-gray-800 text-white shadow-sm focus:border-[#F2611D] focus:ring-[#F2611D] sm:text-sm p-3"
-                      placeholder="e.g., 2-4 weeks, within the next month, flexible"
-                      value={formResponses.timeline || ''}
+                      id="automation_needs"
+                      name="automation_needs"
+                      className="w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm text-gray-900 placeholder-gray-400 focus:border-[#F2611D] focus:ring-2 focus:ring-[#F2611D]/20 transition-colors"
+                      placeholder="e.g., content generation, customer support..."
+                      value={formResponses.automation_needs || ''}
                       onChange={handleFormChange}
                     />
                   </div>
+                )}
 
+                {selectedService === 'Local Visibility & Google Systems' && (
                   <div>
-                    <label htmlFor="contact_email" className="block text-sm font-medium text-white mb-2">
-                      Your best contact email:
+                    <label htmlFor="location_area" className="block text-sm font-medium text-gray-700 mb-1.5">
+                      City/area to rank in? (optional)
                     </label>
                     <input
-                      type="email"
-                      name="contact_email"
-                      id="contact_email"
-                      required
-                      className="block w-full rounded-md border border-gray-700 bg-gray-800 text-white shadow-sm focus:border-[#F2611D] focus:ring-[#F2611D] sm:text-sm p-3"
-                      placeholder="you@example.com"
-                      value={formResponses.contact_email || ''}
+                      type="text"
+                      id="location_area"
+                      name="location_area"
+                      className="w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm text-gray-900 placeholder-gray-400 focus:border-[#F2611D] focus:ring-2 focus:ring-[#F2611D]/20 transition-colors"
+                      placeholder="e.g., Miami, FL"
+                      value={formResponses.location_area || ''}
                       onChange={handleFormChange}
                     />
                   </div>
+                )}
 
-                  <div className="flex gap-4 pt-4">
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setCurrentView('list');
-                        setFormResponses({});
-                        setSelectedService('');
-                      }}
-                      className="flex-1 rounded-md bg-gray-700 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-gray-600 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-700"
-                    >
-                      Back to All Services
-                    </button>
-                    <button
-                      type="submit"
-                      className="flex-1 rounded-md bg-[#F2611D] px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-[#ff7a3d] transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#F2611D]"
-                    >
-                      Send Project Details
-                    </button>
-                  </div>
-                </form>
-              </div>
+                <div>
+                  <label htmlFor="contact_name" className="block text-sm font-medium text-gray-700 mb-1.5">
+                    Your Name
+                  </label>
+                  <input
+                    type="text"
+                    name="contact_name"
+                    id="contact_name"
+                    required
+                    className="w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm text-gray-900 placeholder-gray-400 focus:border-[#F2611D] focus:ring-2 focus:ring-[#F2611D]/20 transition-colors"
+                    placeholder="John Doe"
+                    value={formResponses.contact_name || ''}
+                    onChange={handleFormChange}
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="contact_email" className="block text-sm font-medium text-gray-700 mb-1.5">
+                    Your Email
+                  </label>
+                  <input
+                    type="email"
+                    name="contact_email"
+                    id="contact_email"
+                    required
+                    className="w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm text-gray-900 placeholder-gray-400 focus:border-[#F2611D] focus:ring-2 focus:ring-[#F2611D]/20 transition-colors"
+                    placeholder="you@example.com"
+                    value={formResponses.contact_email || ''}
+                    onChange={handleFormChange}
+                  />
+                </div>
+
+                <div className="flex gap-3 pt-4">
+                  <button
+                    type="submit"
+                    className="flex-1 rounded-lg bg-[#F2611D] px-4 py-3 text-sm font-semibold text-white shadow-sm hover:bg-[#ff7a3d] transition-colors focus:outline-none focus:ring-2 focus:ring-[#F2611D] focus:ring-offset-2"
+                  >
+                    Share This with Nico
+                  </button>
+                </div>
+
+                <p className="text-xs text-gray-500 text-center">
+                  You'll hear back from me in 1–2 business days with next steps.
+                </p>
+              </form>
             )}
-          </motion.div>
-        </>
-      )}
-    </AnimatePresence>
+          </div>
+        </div>
+      </div>
+
+      <style jsx>{`
+        @keyframes slideIn {
+          from {
+            transform: translateX(100%);
+          }
+          to {
+            transform: translateX(0);
+          }
+        }
+        
+        @keyframes slideOut {
+          from {
+            transform: translateX(0);
+          }
+          to {
+            transform: translateX(100%);
+          }
+        }
+      `}</style>
+    </>
   );
 };
 
 export default ServicesDrawer;
-
-
-

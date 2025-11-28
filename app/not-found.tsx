@@ -12,7 +12,7 @@ export default function NotFound() {
   return (
     <div className="relative overflow-x-hidden bg-[#f5f5f0] min-h-screen flex flex-col">
       <NewHeader />
-      
+
       <main className="flex-1 flex items-center justify-center py-20 px-6">
         <div className="max-w-4xl mx-auto text-center">
           <motion.div
@@ -57,8 +57,8 @@ export default function NotFound() {
             transition={{ duration: 0.6, delay: 0.4 }}
             className="text-lg md:text-xl text-gray-700 mb-12 max-w-2xl mx-auto"
           >
-            The page you're looking for doesn't exist or has been moved. 
-            Let's get you back on track.
+            The page you&apos;re looking for doesn&apos;t exist or has been moved.
+            Let&apos;s get you back on track.
           </motion.p>
 
           <motion.div

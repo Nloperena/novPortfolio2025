@@ -136,24 +136,24 @@ const CredibilityStrip = () => {
   return (
     <section 
       aria-label="Brands ticker"
-      className="border-y border-slate-200 bg-white/80 backdrop-blur-sm"
+      className="border-y border-white/10 bg-[#050505] backdrop-blur-md py-2"
     >
-      <div className="w-full px-4 md:px-6 py-3 flex flex-wrap items-center justify-between gap-3 text-sm">
-        {/* Label */}
-        <div className="flex-shrink-0">
-          <p className="text-sm text-gray-600 font-medium whitespace-nowrap">
-            Companies I've worked for:
+      <div className="w-full flex items-center gap-6">
+        {/* Label - News Anchor Style */}
+        <div className="flex-shrink-0 px-6 py-3 bg-[#F2611D] relative ml-0 md:ml-6 clip-path-slant">
+          <p className="text-xs md:text-sm text-white font-bold uppercase tracking-widest whitespace-nowrap">
+            Trusted By
           </p>
         </div>
 
-        {/* Scrolling Ticker - Takes remaining space */}
+        {/* Scrolling Ticker */}
         <div
           ref={containerRef}
-          className="flex-1 relative overflow-hidden"
+          className="flex-1 relative overflow-hidden h-12 flex items-center"
         >
           {/* Edge fade masks */}
-          <div className="pointer-events-none absolute inset-y-0 left-0 w-16 md:w-24 z-10 [mask-image:linear-gradient(to_right,rgba(0,0,0,0),#000_40%)]"></div>
-          <div className="pointer-events-none absolute inset-y-0 right-0 w-16 md:w-24 z-10 [mask-image:linear-gradient(to_left,rgba(0,0,0,0),#000_40%)]"></div>
+          <div className="pointer-events-none absolute inset-y-0 left-0 w-12 z-10 bg-gradient-to-r from-[#050505] to-transparent"></div>
+          <div className="pointer-events-none absolute inset-y-0 right-0 w-12 z-10 bg-gradient-to-l from-[#050505] to-transparent"></div>
           
           <div
             ref={trackRef}
@@ -169,9 +169,9 @@ const CredibilityStrip = () => {
             {loopBrands.map((brand, i) => (
               <div
                 key={`${brand.name}-${i}`}
-                className="shrink-0 px-6 md:px-8 lg:px-12"
+                className="shrink-0 px-8 md:px-12"
               >
-                <span className="text-gray-800 font-semibold text-base md:text-lg lg:text-xl whitespace-nowrap">
+                <span className="text-white/80 font-bold text-lg md:text-xl lg:text-2xl uppercase tracking-wider whitespace-nowrap hover:text-[#F2611D] transition-colors duration-300">
                   {brand.name}
                 </span>
               </div>

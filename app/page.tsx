@@ -1,12 +1,11 @@
 import React from 'react';
+import ScrollProgress from '@/components/ScrollProgress';
 import NewHeader from '@/components/NewHeader';
-import NewHero from '@/components/NewHero';
+import ThreeDHero from '@/components/ThreeDHero';
+import StatsBar from '@/components/StatsBar';
 import CredibilityStrip from '@/components/CredibilityStrip';
-import TechStackStrip from '@/components/TechStackStrip';
 import AboutMeSection from '@/components/AboutMeSection';
-import LatestProjectSection from '@/components/LatestProjectSection';
-import VITOCaseStudySection from '@/components/VITOCaseStudySection';
-import TestimonialVideosGrid from '@/components/TestimonialVideosGrid';
+import SelectedWorkSection from '@/components/SelectedWorkSection';
 import SimplifiedCTA from '@/components/SimplifiedCTA';
 import FooterV2 from '@/components/FooterV2';
 import FloatingContactButton from '@/components/FloatingContactButton';
@@ -14,10 +13,10 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Nico Loperena - Digital Architect',
-  description: 'Crafting digital foundations for tomorrow\'s enterprises. Architecture, Innovation, Deployment.',
+  description: 'Forging digital realities. Transforming complex business needs into immersive, high-performance digital experiences.',
   openGraph: {
     title: 'Nico Loperena - Digital Architect',
-    description: 'Crafting digital foundations for tomorrow\'s enterprises. Architecture, Innovation, Deployment.',
+    description: 'Forging digital realities. Transforming complex business needs into immersive, high-performance digital experiences.',
     type: 'website',
     url: '/',
   },
@@ -25,31 +24,35 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <div className="relative overflow-x-hidden bg-[#f5f5f0]">
+    <div className="relative overflow-x-hidden bg-[#020805] text-white selection:bg-[#F2611D] selection:text-white">
+      <ScrollProgress />
       <NewHeader />
 
-      {/* Hero Section */}
-      <NewHero />
+      {/* Hero Section - Full Screen Immersive */}
+        <ThreeDHero />
 
-      {/* Credibility Strip */}
-      <CredibilityStrip />
+      {/* Stats Bar - Floating Glass */}
+        <StatsBar />
 
-      {/* Tech Stack Strip */}
-      <TechStackStrip />
+      {/* Credibility Strip - Dark Mode */}
+      <div className="border-t border-white/5 bg-[#020805]/80">
+        <CredibilityStrip />
+      </div>
+
+      {/* Main Content - Dark Theme Wrapper */}
+      <div className="space-y-0 relative z-10">
+
+        {/* Selected Work Section - Consolidated */}
+        <SelectedWorkSection />
 
       {/* About Me / Story Section */}
-      <AboutMeSection />
-
-      {/* Latest Project Section */}
-      <LatestProjectSection />
-
-      {/* VITO Case Study Section */}
-      <VITOCaseStudySection />
-
-  
+         <div className="bg-[#05110e]">
+        <AboutMeSection />
+         </div>
 
       {/* Simplified CTA Section */}
-      <SimplifiedCTA />
+        <SimplifiedCTA />
+      </div>
 
       {/* Footer */}
       <FooterV2 />

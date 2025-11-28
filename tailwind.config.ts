@@ -78,10 +78,10 @@ export default {
         marquee: 'marquee var(--marquee-duration, 20s) linear infinite'
       },
       fontFamily: {
-        'inter': ['Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'],
-        'kallisto': ['Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'],
-        'poppins': ['Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'],
-        'sans': ['Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'],
+        sans: ['var(--font-inter)', 'sans-serif'],
+        heading: ['var(--font-outfit)', 'sans-serif'],
+        mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'monospace'],
+        serif: ['var(--font-eb-garamond)', 'serif'],
       },
       fontWeight: {
         'extrabold': '800',
